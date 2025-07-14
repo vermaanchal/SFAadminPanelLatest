@@ -7,9 +7,12 @@ const WalletFreezeUnfreezeHook = () => {
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState([])
     const [status, setStatus] = useState('');
+    const [newSearchData, setNewSearchData] = useState([])
     const [showApproveButton, setShowApproveButton] = useState(true);
     const [showRejectButton, setShowRejectButton] = useState(true);
     const [loading, setLoading] = useState(false);
+
+
     const fetchData = async () => {
         setLoading(true)
         try {
@@ -33,17 +36,10 @@ const WalletFreezeUnfreezeHook = () => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const result = data.filter((item) => {
-            return item.userId.toLowerCase().match(search.toLocaleLowerCase())
-        })
-        setFilter(result)
-    }, [search])
-
     const handleStatusChange = (status) => {
         setStatus(status);
-        setShowApproveButton(true); // Reset to default
-        setShowRejectButton(true); // Reset to default
+        setShowApproveButton(true);
+        setShowRejectButton(true);
     };
 
     const handleSubmit = () => {
@@ -62,13 +58,61 @@ const WalletFreezeUnfreezeHook = () => {
             setShowRejectButton(true);
         }
     };
+
     const handleReset = () => {
         setSearch('');
         setStatus("")
         setFilter(data);
     };
-    //-------------------image preview---------------//
 
+
+    //---------------- Search with api functionallity -----------------//
+    useEffect(() => {
+        if (!search) {
+            setFilter(data);
+            setNewSearchData([]);
+            return;
+        }
+
+        const filteredData = data.filter(item =>
+            (item.userId?.toLowerCase() || '').includes(search.toLowerCase()) ||
+            (item.name?.toLowerCase() || '').includes(search.toLowerCase())
+        );
+
+        setNewSearchData(filteredData);
+
+        if (search.length >= 7) {
+            fetchSearchResults(search);
+        }
+    }, [search, data]);
+
+    const fetchSearchResults = async (userId) => {
+        try {
+            const response = await fetch(`${baseURLProd}SearchWalletFreezeUnfreezeUser`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            const result = await response.json();
+
+            if (result.status && Array.isArray(result.walletFreezeSearchList)) {
+                const serverData = result.walletFreezeSearchList;
+                setNewSearchData(serverData);
+                setFilter(serverData);
+            } else {
+                setNewSearchData([]);
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+            setNewSearchData([]);
+        }
+    };
+
+
+    //----------------download CSV file-----------------//
     const downloadCSV = () => {
         const csv = Papa.unparse(filter);
 
@@ -143,9 +187,9 @@ const WalletFreezeUnfreezeHook = () => {
     };
 
     return {
-        filter, search, setSearch,
+        filter, search, setSearch, fetchSearchResults, newSearchData,
         downloadCSV, data, handleReset, handleStatusChange, handleSubmit, status,
-        showApproveButton, showRejectButton, UnfrozenStatus, frozenStatus,loading
+        showApproveButton, showRejectButton, UnfrozenStatus, frozenStatus, loading
     }
 }
 

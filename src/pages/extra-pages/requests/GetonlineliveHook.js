@@ -47,6 +47,7 @@ const GetonlineagentHook = () => {
     setPreviewImageUrl(imageUrl);
     setOpenPreview(true);
   };
+
   const handleClosePreview = () => {
     setOpenPreview(false);
   };

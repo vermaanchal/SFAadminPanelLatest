@@ -22,6 +22,8 @@ const HostRequest = () => {
     open, userId, name, type, agencyCode, hostCode, phone, setUserId, setName, setType,
     setAgencyCode, setHostCode, setPhone, handleSubmit, data, handleReset, status
     , handleStatusChange, handlefilterSubmit, showApproveButton, showRejectButton, loading } = HostRequestHook()
+
+
   const calcIndex = (index) => (currentPage - 1) * rowsPerPage + index + 1;
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -32,6 +34,7 @@ const HostRequest = () => {
     setRowsPerPage(rows);
     setCurrentPage(1);
   };
+
   const column = [
     {
       name: "No.",
@@ -101,7 +104,7 @@ const HostRequest = () => {
     {
       name: "Status",
       // selector: price,
-      cell: row => <div className="custom-cell">{row.status}</div>,
+      cell: row => <div className="custom-cell">{row.status1 || "_"}</div>,
       width: '180px'
     },
     {
@@ -122,20 +125,18 @@ const HostRequest = () => {
         const hostCode = row.hostCode;
         return (
           <>
-            {status === '' && (
+            {row.status1 === '' && (
               <>
                 <button
                   className='btn btn-primary me-2'
                   onClick={() => handleApprove(agencyCode, userId)}
-                  disabled={row.status === 'Approved'}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
-                  Approved
+                  Approve
                 </button>
                 <button
                   className='btn btn-primary me-2'
                   onClick={() => handleReject(agencyCode, userId)}
-                  disabled={row.status === 'Rejected'}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
                   Reject
@@ -147,25 +148,43 @@ const HostRequest = () => {
                 </span>
               </>
             )}
-            {status === 'Approved' && showApproveButton && (
-              <button
-                className='btn btn-primary me-2'
-                onClick={() => handleApprove(row.id)}
-                disabled={row.status === 'Approved'}
-                style={{ backgroundColor: '#EF9848', border: '0px' }}
-              >
-                Approved
-              </button>
+            {row.status1 === 'Approve' && (
+              <>
+                <button
+                  className='btn btn-primary me-2'
+                  onClick={() => handleApprove(row.id)}
+                  disabled={row.status1 === 'Approve'}
+                  style={{ backgroundColor: '#EF9848', border: '0px' }}
+                >
+                  Approved
+                </button>
+                <button
+                  className='btn btn-primary'
+                  onClick={() => handleReject(row.id)}
+                  style={{ backgroundColor: '#EF9848', border: '0px' }}
+                >
+                  Reject
+                </button>
+              </>
             )}
-            {status === 'Reject' && showRejectButton && (
-              <button
-                className='btn btn-primary'
-                onClick={() => handleReject(row.id)}
-                disabled={row.status === 'Reject'}
-                style={{ backgroundColor: '#EF9848', border: '0px' }}
-              >
-                Reject
-              </button>
+            {row.status1 === 'Reject' && (
+              <>
+                <button
+                  className='btn btn-primary me-2'
+                  onClick={() => handleApprove(row.id)}
+                  style={{ backgroundColor: '#EF9848', border: '0px' }}
+                >
+                  Approve
+                </button>
+                <button
+                  className='btn btn-primary'
+                  onClick={() => handleReject(row.id)}
+                  disabled={row.status1 === 'Reject'}
+                  style={{ backgroundColor: '#EF9848', border: '0px' }}
+                >
+                  Rejectd
+                </button>
+              </>
             )}
           </>
         );
@@ -238,8 +257,8 @@ const HostRequest = () => {
                             style={{ textAlign: "center" }}
                           >
                             <MenuItem value="nostatus" >--No Select--</MenuItem>
-                            <MenuItem value="1" onClick={() => handleStatusChange('Approved')}>Approve</MenuItem>
-                            <MenuItem value="2" onClick={() => handleStatusChange('Reject')}>Reject</MenuItem>
+                            <MenuItem value="1" onClick={() => handleStatusChange('Approve')}>Approved</MenuItem>
+                            <MenuItem value="2" onClick={() => handleStatusChange('Reject')}>Rejected</MenuItem>
                           </Select>
                         </FormControl>
                         <div className='mx-3 d-flex'><button className='btn btn-primary mb-3' style={{ backgroundColor: '#EF9848', border: '0px' }} onClick={handlefilterSubmit}>Submit</button></div>
@@ -255,7 +274,7 @@ const HostRequest = () => {
           </div>
         ) : (
           <div className='text-center fw-bold my-4'>
-             <DataTable columns={column} data={filter} fixedHeader customStyles={tableHeaderStyle} className='data-table'
+            <DataTable columns={column} data={filter} fixedHeader customStyles={tableHeaderStyle} className='data-table'
               pagination
               subHeader
               onChangePage={handlePageChange}

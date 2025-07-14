@@ -43,8 +43,6 @@ const UpdateUserCoin = () => {
     setRowsPerPage(newPerPage);
     setCurrentPage(page);
   }
-  console.log(newSearchData,filter,'nennwwnwnwn')
-
   const defaultColumns = [
     {
       name: "No.sss",
