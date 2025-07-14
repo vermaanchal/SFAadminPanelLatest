@@ -69,55 +69,99 @@ const AddDeductBeanHook = () => {
     }
   };
   //--------------------filter------------------//
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      console.log("fun call");
-      if (search && search.length >= 7) {
-        const uniqueResults = data.filter((item, index, self) =>
-          index === self.findIndex(t => t.userId.toLowerCase() === item.userId.toLowerCase())
-        ).filter((item) =>
-          item.userId.toLowerCase().includes(search.toLowerCase())
-        );
+  // useEffect(() => {
+  //   const fetchSearchResults = async () => {
+  //     console.log("fun call");
+  //     if (search && search.length >= 7) {
+  //       const uniqueResults = data.filter((item, index, self) =>
+  //         index === self.findIndex(t => t.userId.toLowerCase() === item.userId.toLowerCase())
+  //       ).filter((item) =>
+  //         item.userId.toLowerCase().includes(search.toLowerCase())
+  //       );
 
-        // setFilter(uniqueResults);
-        let aggregatedResults = [];
-        try {
-          console.log("search validation")
-          // for (const row of uniqueResults) {
-          // if (row.userId) {
-          if (search) {
-            const req = await fetch(`${baseURLProd}SearchByUserIdBean`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ userId: search })
-            });
-            const result = await req.json();
-            aggregatedResults.push(result);
-          }
-          // }
-          setNewSearchData(aggregatedResults);
-          setShow(true)
-        } catch (error) {
-          console.log(error)
-          setShow(true)
-        }
-      } else {
-        setShow(false);
-        setFilter(data);
-        setNewSearchData([]);
+  //       // setFilter(uniqueResults);
+  //       let aggregatedResults = [];
+  //       try {
+  //         console.log("search validation")
+  //         // for (const row of uniqueResults) {
+  //         // if (row.userId) {
+  //         if (search) {
+  //           const req = await fetch(`${baseURLProd}SearchByUserIdBean`, {
+  //             method: 'POST',
+  //             headers: {
+  //               'Content-Type': 'application/json'
+  //             },
+  //             body: JSON.stringify({ userId: search })
+  //           });
+  //           const result = await req.json();
+  //           aggregatedResults.push(result);
+  //         }
+  //         // }
+  //         setNewSearchData(aggregatedResults);
+  //         setShow(true)
+  //       } catch (error) {
+  //         console.log(error)
+  //         setShow(true)
+  //       }
+  //     } else {
+  //       setShow(false);
+  //       setFilter(data);
+  //       setNewSearchData([]);
+  //     }
+  //   };
+  //   if (search && search.length <= 7) {
+  //     console.log(search);
+  //     const d_filter = data.filter((item) => item.userId.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()))
+  //     console.log("d_filter", d_filter);
+  //     setNewSearchData(d_filter);
+  //   } else {
+  //     fetchSearchResults();
+  //   }
+  // }, [search, data]);
+
+  useEffect(() => {
+    if (search === '') {
+      setFilter(data);
+    } else {
+      if (search) {
+        const f_data = data.filter((item) => item.userId.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()))
+        setNewSearchData(f_data);
       }
-    };
-  if (search && search.length <=7 ) {
-    console.log(search);
-      const d_filter = data.filter((item)=> item.userId.toLowerCase().includes(search.toLowerCase()) ||  item.name.toLowerCase().includes(search.toLowerCase()))
-      console.log("d_filter",d_filter);
-     setNewSearchData(d_filter);
-  }else{
-    fetchSearchResults();
-  }
+      if (search.length >= 7) {
+        fetchSearchResults();
+      }
+    }
+
   }, [search, data]);
+
+
+  const fetchSearchResults = async () => {
+    if (search && search.length >= 7) {
+      try {
+        let aggregatedResults = [];
+        setNewSearchData([]);
+        const req = await fetch(`${baseURLProd}SearchByUserIdCoinAmount`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userId: search })
+        });
+        const result = await req.json();
+        if (result.status) {
+          aggregatedResults.push(result.searchUserCoinAmountList[0]);
+          setNewSearchData(aggregatedResults);
+          setFilter(aggregatedResults);
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    else {
+      setNewSearchData([])
+    }
+  };
+
 
 
   //----------------download CSV file-----------------//
@@ -262,7 +306,7 @@ const AddDeductBeanHook = () => {
   };
   return {
     filter, search, setSearch, downloadCSV, setFilter, handleSubmit, handleReset, data, show,
-    selectedFiles, handleFileChange, handleUpload, handleChange, handleDeductBean, newSearchData, loading
+    selectedFiles, handleFileChange, handleUpload, handleChange, handleDeductBean, newSearchData, fetchSearchResults, loading
   }
 }
 

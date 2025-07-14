@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '../../../../node_modules/@fortawesome/react-fon
 import { faSpinner } from '../../../../node_modules/@fortawesome/free-solid-svg-icons/index';
 const UpdateBeans = () => {
   const { filter, search, setSearch, handleChange, handleSubmit, handleDeductBean,
-    newSearchData, handleFileChange, handleUpload, handleReset, data, loading } = AddDeductBeanHook()
+    newSearchData, handleFileChange, handleUpload, handleReset, fetchSearchResults, data, loading } = AddDeductBeanHook()
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const calcIndex = (index) => (currentPage - 1) * rowsPerPage + index + 1;
@@ -84,7 +84,7 @@ const UpdateBeans = () => {
     },
     {
       name: "Available Beans",
-      cell: row => <div className="custom-cell">{row.availableBeans}</div>,
+      cell: row => <div className="custom-cell">{row.beans}</div>,
     }
     ,
     {
@@ -168,7 +168,7 @@ const UpdateBeans = () => {
           <div className='d-flex'>
             <input type='text' className=' form-control searchInput' placeholder='Search User Id' value={search}
               onChange={(e) => setSearch(e.target.value)}></input>
-            <div className='searchIcon' ><SearchOutlinedIcon
+            <div className='searchIcon' ><SearchOutlinedIcon onClick={fetchSearchResults}
               style={{ cursor: "pointer" }} /></div>
           </div>
           <div>
@@ -186,18 +186,11 @@ const UpdateBeans = () => {
           </div>
         ) :
           <div className='text-end mt-3'>
-            {/* <DataTable columns ={defaultColumns} data={filter}/> */}
-            {/* {show ? */}
             <DataTable columns={search ? searchColumns : defaultColumns} data={search ? newSearchData : filter} fixedHeader customStyles={tableHeaderStyle} className='data-table'
               pagination
-
               onChangePage={handlePageChange}
               onChangeRowsPerPage={handlePerRowsChange}
             />
-            {/* : (
-            <p className="text-center" style={{ fontSize: "20px" }}>No data Available</p>
-          )
-        } */}
           </div>}
       </Grid>
     </MainCard>

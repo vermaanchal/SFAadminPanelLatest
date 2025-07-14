@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
 const HostRequestHook = () => {
-  const [data, setData] = useState([]);
   const [search, setSearch] = useState('')
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState([])
+
   const [openPreview, setOpenPreview] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState('');
   const [open, setOpen] = useState(false)
@@ -30,13 +31,14 @@ const HostRequestHook = () => {
 
       })
       const res = await req.json();
-      setLoading(false)
-      setData(res.hostRequestList);
-      setFilter(res.hostRequestList)
+      if (res.status) {
+        setData(res.hostRequestList);
+        setFilter(res.hostRequestList)
+      }
     }
     catch (error) {
       console.log(error)
-    }finally {
+    } finally {
       setLoading(false)
     }
   }
@@ -57,17 +59,17 @@ const HostRequestHook = () => {
   const handleApprove = async (agencyCode, userId) => {
     try {
       if (window.confirm("Are you sure to Approve the Request")) {
-      await fetch(`${baseURLProd}HostRequestApprove`, {
-        method: 'POST',
-        body: JSON.stringify({ agencyCode: agencyCode, userId: userId }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+        await fetch(`${baseURLProd}HostRequestApprove`, {
+          method: 'POST',
+          body: JSON.stringify({ agencyCode: agencyCode, userId: userId }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         const rowIndex = data.findIndex(item => item.agencyCode === agencyCode);
         if (rowIndex !== -1) {
           const updatedData = [...data];
-          updatedData[rowIndex].status = 'Approved';
+          updatedData[rowIndex].status1 = 'Approve';
           toast.success("Request Approved successfully")
           setSearch('');
           setData(updatedData);
@@ -81,22 +83,22 @@ const HostRequestHook = () => {
   };
   //--------------------reject ------------------------//
   const handleReject = async (agencyCode, userId) => {
-    console.log(agencyCode,userId,'ooppp')
+    console.log(agencyCode, userId, 'ooppp')
 
     try {
       if (window.confirm("Are you sure to Reject the Request")) {
-      await fetch(`${baseURLProd}HostRequestReject`, {
-        method: 'POST',
-        body: JSON.stringify({ agencyCode: agencyCode, userId: userId }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+        await fetch(`${baseURLProd}HostRequestReject`, {
+          method: 'POST',
+          body: JSON.stringify({ agencyCode: agencyCode, userId: userId }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         const rowIndex = data.findIndex(item => item.agencyCode === agencyCode && item.userId === userId);
         if (rowIndex !== -1) {
           const updatedData = [...data];
-          updatedData[rowIndex].status = 'Reject';
-          toast.success("Request Rejected successfully")
+          updatedData[rowIndex].status1 = 'Reject';
+          toast.success("Request Reject successfully")
           setSearch("")
           setData(updatedData);
           setFilter(updatedData);
@@ -172,26 +174,26 @@ const HostRequestHook = () => {
 
     try {
       if (window.confirm("Are you sure to change the host details ?")) {
-      const response = await fetch(`${baseURLProd}EditHostrequest`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: userId,
-          name: name,
-          type: type,
-          phone: phone,
-          agencyCode: agencyCode,
-          hostCode: hostCode,
-        }),
-      });
+        const response = await fetch(`${baseURLProd}EditHostrequest`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userId,
+            name: name,
+            type: type,
+            phone: phone,
+            agencyCode: agencyCode,
+            hostCode: hostCode,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to edit user details');
-      }
+        if (!response.ok) {
+          throw new Error('Failed to edit user details');
+        }
 
-      await response.json();
+        await response.json();
 
         fetchData()
         setOpen(false);
@@ -213,18 +215,22 @@ const HostRequestHook = () => {
   }
   const handleStatusChange = (status) => {
     setStatus(status);
+    console.log("status", status)
     setShowApproveButton(true); // Reset to default
     setShowRejectButton(true); // Reset to default
   };
 
   const handlefilterSubmit = () => {
-    if (status) {
-      const filtered = data.filter(item => item.status === status);
+
+    if (status && data) {
+
+      const filtered = data.filter(item => item.status1 === status);
+
       setFilter(filtered);
-      
-      if (status === 'Approved') {
+
+      if (status === 'Approve') {
         setShowRejectButton(false);
-      } else if (status === 'Rejected') {
+      } else if (status === 'Reject') {
         setShowApproveButton(false);
       }
     } else {
@@ -238,13 +244,14 @@ const HostRequestHook = () => {
     setStatus("")
     setFilter(data);
   };
+
   return {
     filter, search, setSearch, openPreview, setOpenPreview, previewImageUrl, setPreviewImageUrl,
     handleClosePreview, handleDownload, handleImageClick, handleApprove,
     handleReject, downloadCSV, handleEdit, handleSubmit, handleClose,
     open, userId, name, type, agencyCode, hostCode, phone, setOpen, setUserId, setName, setType,
-    setAgencyCode, setHostCode, setPhone,data,handleReset,handleStatusChange,handlefilterSubmit,status,
-    showApproveButton,showRejectButton,loading
+    setAgencyCode, setHostCode, setPhone, data, handleReset, handleStatusChange, handlefilterSubmit, status,
+    showApproveButton, showRejectButton, loading
   }
 }
 
