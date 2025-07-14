@@ -1,28 +1,28 @@
 import MainCard from 'components/MainCard';
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import { Grid, IconButton,Box } from '@mui/material';
+import { Grid, IconButton, Box, Dialog, DialogContent } from '@mui/material';
 import BannerUploadHooks from './BannerUploadHooks';
 import Button from '@mui/material/Button';
 import { Margin, Opacity } from '../../../../node_modules/@mui/icons-material/index';
 import { styled } from '@mui/material/styles';
-
+import { ToastContainer } from 'react-toastify'
 
 const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
+	clip: 'rect(0 0 0 0)',
+	clipPath: 'inset(50%)',
+	height: 1,
+	overflow: 'hidden',
+	position: 'absolute',
+	bottom: 0,
+	left: 0,
+	whiteSpace: 'nowrap',
+	width: 1,
 });
 
 const BannerUpload = () => {
 
-	const { bannerData, setBannerData, handleImageshow,handleUploadimg,setImg,handleRemove,handleEnable } = BannerUploadHooks();
+	const { bannerData, handleUploadimg, setImg, handleRemove, handleEnable, openPreview, previewImageUrl, handleClosePreview, handleImageClick, img } = BannerUploadHooks();
 
 	const tableHeaderStyle = {
 		headCells: {
@@ -46,10 +46,6 @@ const BannerUpload = () => {
 		}
 	}
 
-	const handleFile = () => {
-		document.getElementById("inputfile").OnClick();
-	}
-
 	const column = [
 		// {
 		// 	name: 'Id',
@@ -59,19 +55,19 @@ const BannerUpload = () => {
 		{
 			name: 'Banner Name',
 			cell: (row) => <>{row.bannerName.split('.png')}</>,
-			width:'200px'
+			width: '200px'
 		},
 		{
 			name: 'Uploaded date',
-			cell: (row) => <>{row.created_date?.slice(0,10)}</>,
+			cell: (row) => <>{row.created_date?.slice(0, 10)}</>,
 		}, {
 			name: 'Image Preview',
 			cell: (row) => <>
-				<div style={{ borderRadius: "8px", overflow: "hidden", width: "50px", height: "50px" }}>
+				<div onClick={() => handleImageClick(row.imagePreview.split('.img'))} style={{ borderRadius: "0.25rem", cursor: "pointer", margin: "0.2rem 0rem", overflow: "hidden", width: "50px", height: "50px" }}>
 					<img width={50} height={50} src={row.imagePreview.split('.img')} alt="Img" style={{ objectFit: "cover" }} />
 				</div>
 			</>,
-			width:"200px"
+			width: "200px"
 		},
 		// {
 		// 	name: 'isActive',
@@ -80,50 +76,71 @@ const BannerUpload = () => {
 		{
 			name: 'Enable',
 			cell: (row) => <>
-			{row.isActive === "True" ? 
-			<Button color="secondary" variant="contained" size="small" sx={{opacity:'0.5'}}  >Enable</Button>
-			:
-			<Button color="warning" variant="contained" size="small" onClick={()=>handleEnable(row.uniqueId,true)}>Enable</Button>
-		}
-			 </>,
+				{row.isActive === "True" ?
+					<Button color="secondary" variant="contained" size="small" sx={{ opacity: '0.5' }}  >Enabled</Button>
+					:
+					<Button color="warning" variant="contained" size="small" onClick={() => handleEnable(row.uniqueId, true)}>Enable</Button>
+				}
+			</>,
 		},
 		{
 			name: 'Disable',
 			cell: (row) => <> {row.isActive === "False" ?
-				 <Button color="secondary" variant="contained" size="small" sx={{opacity:'0.5'}} >Disable</Button> 
+				<Button color="secondary" variant="contained" size="small" sx={{ opacity: '0.5' }} >Disabled</Button>
 				:
-				 <Button color="warning" variant="contained" size="small" onClick={()=>handleEnable(row.uniqueId,false)}>Disable</Button> 
-				 
+				<Button color="warning" variant="contained" size="small" onClick={() => handleEnable(row.uniqueId, false)}>Disable</Button>
+
 			}</>,
 		},
 		{
 			name: 'Remove',
-			cell: (row) => <> <Button color="secondary" variant="contained" size="small" onClick={()=>handleRemove(row.uniqueId)}>Remove</Button> </>,
+			cell: (row) => <> <Button color="secondary" variant="contained" size="small" onClick={() => handleRemove(row.uniqueId)}>Remove</Button> </>,
 		},
 	]
 
 	return (
 
 		<MainCard title="Banner Upload">
+			<ToastContainer />
+			<Dialog open={openPreview} onClose={handleClosePreview}>
+				<DialogContent>
+					<img src={previewImageUrl} alt="Preview" width='400px' />
+				</DialogContent>
+			</Dialog>
 			<Grid items sx={12} md={12} lg={12}>
 				<Grid>
-					<form onSubmit={handleUploadimg}>
-					<Button
-						component="label"
-						role={undefined}
-						color="secondary"
-						variant="contained"
-						tabIndex={-1}
-						// startIcon={<CloudUploadIcon />}
+					<form onSubmit={handleUploadimg} className="flex items-center space-x-4">
+						<Button
+							component="label"
+							role={undefined}
+							color="secondary"
+							variant="contained"
+							tabIndex={-1}
 						>
-						Upload files
-						<VisuallyHiddenInput
-							type="file"
-							onChange={(e) => setImg(e.target.files[0])}
-						/>
+							Choose files
+							<VisuallyHiddenInput
+								type="file"
+								onChange={(e) => setImg(e.target.files[0])}
+							/>
 						</Button>
-						<Button  type="submit" className='mx-3' variant="contained">Submit</Button>
-						</form>
+
+						{/* Show the uploaded file name */}
+						{img && (
+							<span className="text-sm text-gray-700">
+								{img.name}
+							</span>
+						)}
+
+						<Button
+							type="submit"
+							className="mx-3"
+							variant="contained"
+						// disabled={!img}
+						>
+							Update
+						</Button>
+					</form>
+
 					{/* <Button color="primary" variant="contained" sx={{ margin: "10px" }} onClick={handleFile}>Upload Image</Button>
 					<input id="inputfile" type="file" name="" value="" hidden /> */}
 					{/* <Button
@@ -154,16 +171,16 @@ const BannerUpload = () => {
 						<VisuallyHiddenInput type="file" />
 					</Button> */}
 				</Grid>
-			<Box className='mt-4'>
+				<Box className='mt-4'>
 					<DataTable
-					data={bannerData}
-					columns={column}
-					pagenation
-					fixedHeader
-					customStyles={tableHeaderStyle} className='data-table'
-					pagination
-				/>
-			</Box>
+						data={bannerData}
+						columns={column}
+						pagenation
+						fixedHeader
+						customStyles={tableHeaderStyle} className='data-table'
+						pagination
+					/>
+				</Box>
 			</Grid>
 
 		</MainCard>
