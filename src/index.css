@@ -1,0 +1,257 @@
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+
+.imgPreviewDiv {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.csvDiv {
+  font-size: 16px;
+  border: 1px solid #EF9848;
+  padding: 8px 10px;
+  color: #EF9848;
+}
+
+.searchInput {
+  background-color: #f1f4f9;
+  padding: 10px 18px;
+  width: 83%
+}
+
+.searchIcon {
+  display: flex;
+  margin-left: -41px;
+  padding: 4px;
+  background: white;
+  border: 1px solid grey;
+  margin: 6px 6px 6px -40px;
+  border-radius: 5px;
+}
+
+header {
+  display: inline !important;
+}
+
+.custom-cell {
+  font-size: 0.875rem !important;
+  font-family: 'Public Sans', sans-serif !important;
+}
+
+.data-table {
+  overflow-x: scroll !important;
+}
+
+.deleteIcon {
+  background-color: #f1f4f9;
+  border: 1px solid grey;
+  padding: 8px 9px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+span.editIcon {
+  padding: 8px 9px;
+  background-color: #f1f4f9;
+  /* border-top: 1px solid grey;
+  border-left: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px; */
+  border: 2px solid #EF9848;
+  border-radius: 7px;
+}
+
+.rdt_TableRow,
+.rdt_TableCell,
+.gjoprN .rdt_TableCol,
+.rdt_TableCol_Sortable {
+  font-size: 0.875rem !important;
+  /* text-align: justify !important; */
+  /* justify-content: center !important; */
+}
+
+.editTitle {
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  text-decoration: underline !important;
+}
+
+.css-vl05fo-MuiPaper-root-MuiCard-root {
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+  border-color: 0px !important;
+}
+
+/* .loginBgdiv {
+  background: url('./assets/images/users/loginBg.png') no-repeat !important;
+} */
+
+.idBanModal {
+  width: 100% !important
+}
+
+.editInputField {
+  margin-bottom: 25px !important;
+}
+
+.editInputField .css-1ci3ki6-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 16.5px 14px 10.5px 12px !important;
+  line-height: 13px !important;
+}
+
+.editButtonDiv {
+  margin-bottom: 10px !important;
+  padding: 0px 24px 20px 24px !important;
+}
+
+.loginBtn {
+  background-color: #EF9848 !important;
+  width: 30% !important;
+  margin-left: 170px !important;
+}
+
+.authLoginDiv {
+  padding-left: 37px !important;
+  padding-top: 37px !important;
+}
+
+.authwrapperDiv {
+  width: 100% !important
+}
+
+.leftDiv {
+  padding-top: 170px !important;
+  background: #f4f5fa !important;
+  margin-left: 0px !important;
+  margin-top: 0px !important;
+  height: 100vh !important;
+}
+
+/* .selectDiv .css-o8pmqo-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  min-width: 112px !important;
+  text-align: center !important;
+} */
+.selectDiv {
+  max-width: 300px !important;
+}
+
+.assignroleSelect {
+  border: 1px solid #ced4da !important;
+  background-color: #f1f4f9 !important;
+  padding: 13px 4px 13px 4px !important;
+  color: #212529 !important;
+  border-radius: 5px;
+}
+
+.assignroleSelect::placeholder {
+  color: #999;
+}
+
+/* .designationForm .css-vohstb-MuiFormLabel-root-MuiInputLabel-root {
+  line-height: 13px !important;
+} */
+.designationForm {
+  width: 175px;
+}
+
+.editrequestbtn {
+  background-color: #EF9848;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.searchDateInput {
+  background-color: #f1f4f9;
+  padding: 10px 18px;
+  width: 15%;
+  margin-right: 28px;
+}
+
+.labelfordate {
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.changePassdiv {
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* padding: 40px; */
+  margin-top: 30px;
+}
+
+.changepassinnerdiv {
+  border: 1px solid #dcd4d4;
+  border-radius: 10px;
+  padding: 40px;
+  background-color: white;
+
+}
+
+.emailInput {
+  width: 80% !important;
+  border-radius: 7px !important;
+  padding: 5px 10px 5px 0px !important;
+}
+
+.formdiv {
+  margin-left: 29px !important;
+}
+
+.frameSelect {
+  padding: 6px !important;
+  border: 1px solid #d3cfcf !important;
+  background: white !important;
+  width: 154px !important;
+}
+
+#select-label {
+  line-height: 14px !important;
+}
+
+.dashboardCard{
+  padding: 30px;
+  margin-left: 15px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.05);
+}
+
+
+.dashCard {
+  padding: 30px;
+  margin-left: 15px;
+  background: aliceblue;
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
+}
+.dashCard2 {
+  padding: 30px;
+  margin-left: 15px;
+  background: antiquewhite;
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
+}
+.dashCard3 {
+  padding: 30px;
+  margin-left: 15px;
+  background: #cdf0cd;
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
+}
+.dashCard4 {
+  padding: 30px;
+  margin-left: 15px;
+  background: #fde6e9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
+}
