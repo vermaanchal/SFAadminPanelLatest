@@ -12,7 +12,9 @@ const UpdateBeans = () => {
     newSearchData, handleFileChange, handleUpload, handleReset, fetchSearchResults, data, loading } = AddDeductBeanHook()
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+
   const calcIndex = (index) => (currentPage - 1) * rowsPerPage + index + 1;
+
   const handlePageChange = page => {
     setCurrentPage(page);
   }
@@ -165,12 +167,14 @@ const UpdateBeans = () => {
         )}
 
         <div className='d-flex justify-content-between'>
+
           <div className='d-flex'>
             <input type='text' className=' form-control searchInput' placeholder='Search User Id' value={search}
               onChange={(e) => setSearch(e.target.value)}></input>
             <div className='searchIcon' ><SearchOutlinedIcon onClick={fetchSearchResults}
               style={{ cursor: "pointer" }} /></div>
           </div>
+
           <div>
             {/* <input type="file" onChange={handleFileChange} />
             <button onClick={handleUpload} className='btn btn-primary me-4'
@@ -180,6 +184,7 @@ const UpdateBeans = () => {
             <Button className='csvDiv' onClick={downloadCSV} >Download<FileDownloadOutlinedIcon style={{ color: '#EF9848' }} /></Button>
           </div> */}
         </div>
+
         {loading ? (
           <div style={{ zIndex: 1050, height: "54%", width: "75%" }} className="d-flex justify-content-center  align-items-center position-absolute">
             <FontAwesomeIcon icon={faSpinner} spin size="3x" style={{ color: '#EF9848' }} />

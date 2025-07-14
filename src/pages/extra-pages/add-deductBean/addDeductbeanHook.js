@@ -119,49 +119,52 @@ const AddDeductBeanHook = () => {
   //   }
   // }, [search, data]);
 
+
   useEffect(() => {
-    if (search === '') {
+    if (!search) {
       setFilter(data);
-    } else {
-      if (search) {
-        const f_data = data.filter((item) => item.userId.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()))
-        setNewSearchData(f_data);
-      }
-      if (search.length >= 7) {
-        fetchSearchResults();
-      }
+      setNewSearchData([]);
+      return;
     }
 
+    const filteredData = data.filter(item =>
+      (item.userId?.toLowerCase() || '').includes(search.toLowerCase()) ||
+      (item.name?.toLowerCase() || '').includes(search.toLowerCase())
+    );
+
+    setNewSearchData(filteredData);
+
+    if (search.length >= 7) {
+      fetchSearchResults(search);
+    }
   }, [search, data]);
 
+  const fetchSearchResults = async (userId) => {
+    try {
+      setNewSearchData([]);
 
-  const fetchSearchResults = async () => {
-    if (search && search.length >= 7) {
-      try {
-        let aggregatedResults = [];
+      const response = await fetch(`${baseURLProd}SearchByUserIdCoinAmount`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      });
+
+      const result = await response.json();
+
+      if (result.status && Array.isArray(result.searchUserCoinAmountList)) {
+        const searchResults = result.searchUserCoinAmountList;
+        setNewSearchData(searchResults);
+        setFilter(searchResults);
+      } else {
         setNewSearchData([]);
-        const req = await fetch(`${baseURLProd}SearchByUserIdCoinAmount`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ userId: search })
-        });
-        const result = await req.json();
-        if (result.status) {
-          aggregatedResults.push(result.searchUserCoinAmountList[0]);
-          setNewSearchData(aggregatedResults);
-          setFilter(aggregatedResults);
-        }
-      } catch (error) {
-        console.log(error)
       }
-    }
-    else {
-      setNewSearchData([])
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      setNewSearchData([]);
     }
   };
-
 
 
   //----------------download CSV file-----------------//
