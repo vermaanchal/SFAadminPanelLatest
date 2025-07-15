@@ -1,10 +1,8 @@
-// assets
-import { DashboardOutlined } from '@ant-design/icons';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
 // icons
 const icons = {
-  DashboardOutlined,RadioButtonCheckedSharpIcon
+  DashboardOutlinedIcon
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -13,14 +11,14 @@ const dashboard = {
   id: 'group-dashboard',
   title: 'Dashboard',
   type: 'group',
+  icon: icons.DashboardOutlinedIcon,
   children: [
     {
       id: 'dashboard',
       title: 'Dashboard',
       type: 'item',
       url: '/dashboard',
-      // icon: icons.DashboardOutlined,
-      // icon: icons.RadioButtonCheckedSharpIcon,
+      icon: icons.DashboardOutlinedIcon,
       breadcrumbs: false,
     }
   ]

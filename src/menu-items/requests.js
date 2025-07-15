@@ -1,78 +1,42 @@
-// assets
-import {
-  AppstoreAddOutlined,
-  AntDesignOutlined,
-  BarcodeOutlined,
-  BgColorsOutlined,
-  LoadingOutlined
-} from '@ant-design/icons';
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
-import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
-import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
 
-// icons
 const icons = {
-  AdminPanelSettingsOutlinedIcon,
-  BgColorsOutlined,
-  BarcodeOutlined,
-  AntDesignOutlined,
-  LoadingOutlined,
-  AppstoreAddOutlined,
-  ContactPhoneOutlinedIcon,
-  SupportAgentOutlinedIcon,
-  SupervisorAccountOutlinedIcon,RadioButtonCheckedSharpIcon
+  MailOutlineIcon,
+  ShieldOutlinedIcon,
+  BusinessCenterOutlinedIcon,
+  RecordVoiceOverOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - UTILITIES ||============================== //
 
 const requests = {
   id: 'requests',
   title: 'Requests',
   type: 'group',
+  icon: icons.MailOutlineIcon,
   children: [
     {
       id: 'admin-request',
       title: 'Admin Request',
       type: 'item',
       url: '/AdminRequest',
-      // icon: icons.AdminPanelSettingsOutlinedIcon
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.ShieldOutlinedIcon
     },
     {
       id: 'agency-request',
       title: 'Agency Request',
       type: 'item',
       url: '/AgencyRequest',
-      // icon: icons.SupportAgentOutlinedIcon
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.BusinessCenterOutlinedIcon
     },
     {
       id: 'host-request',
       title: 'Host Request',
       type: 'item',
       url: '/HostRequest',
-      // icon: icons.ContactPhoneOutlinedIcon
-      icon: icons.RadioButtonCheckedSharpIcon
-    },
-    // {
-    //   id: 'admin-agency-host',
-    //   title: ' Admin/Agency/Host',
-    //   type: 'item',
-    //   url: '/AdminAgencyHost',
-    //   icon: icons.SupervisorAccountOutlinedIcon,
-    //   // breadcrumbs: false
-    // },
-    // {
-    //   id: 'agent-request',
-    //   title: 'Agent Request',
-    //   type: 'item',
-    //   url: '/AgentRequest',
-    //   // icon: icons.ContactPhoneOutlinedIcon
-    //   icon: icons.RadioButtonCheckedSharpIcon
-    // },
-   
+      icon: icons.RecordVoiceOverOutlinedIcon
+    }
   ]
 };
 

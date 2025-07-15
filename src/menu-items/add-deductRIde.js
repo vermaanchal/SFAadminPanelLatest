@@ -1,28 +1,20 @@
-// assets
-import { DashboardOutlined } from '@ant-design/icons';
-import DirectionsBikeOutlinedIcon from '@mui/icons-material/DirectionsBikeOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import ElectricScooterOutlinedIcon from '@mui/icons-material/ElectricScooterOutlined';
 
-// icons
 const icons = {
-  DashboardOutlined,DirectionsBikeOutlinedIcon,RadioButtonCheckedSharpIcon
+  ElectricScooterOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
 const updateRides = {
   id: 'update-ride',
-  // title: 'Navigation',
   type: 'group',
+  icon: icons.ElectricScooterOutlinedIcon,
   children: [
     {
       id: 'add-deduct-ride',
       title: 'Add / Remove Ride',
       type: 'item',
       url: '/UserRide',
-      // icon: icons.DirectionsBikeOutlinedIcon,
-      // icon: icons.RadioButtonCheckedSharpIcon,
-      // breadcrumbs: false
+      icon: icons.ElectricScooterOutlinedIcon
     }
   ]
 };

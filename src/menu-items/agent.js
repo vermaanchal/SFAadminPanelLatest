@@ -1,46 +1,41 @@
-// assets
-import { StopOutlined } from '@ant-design/icons';
-import AppBlockingOutlinedIcon from '@mui/icons-material/AppBlockingOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import OnlinePredictionOutlinedIcon from '@mui/icons-material/OnlinePredictionOutlined';
 
-// icons
 const icons = {
-    StopOutlined,
-    AppBlockingOutlinedIcon, RadioButtonCheckedSharpIcon
+    SupportAgentOutlinedIcon,
+    MarkEmailUnreadOutlinedIcon,
+    CallOutlinedIcon,
+    OnlinePredictionOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - SAMPLE PAGE & DOCUMENTATION ||============================== //
 
 const agentrecord = {
     id: 'agent',
     title: 'Agent',
     type: 'group',
+    icon: icons.SupportAgentOutlinedIcon,
     children: [
         {
             id: 'agent-request',
             title: 'Agent Request',
             type: 'item',
             url: '/AgentRequest',
-            // icon: icons.ContactPhoneOutlinedIcon
-            icon: icons.RadioButtonCheckedSharpIcon
+            icon: icons.MarkEmailUnreadOutlinedIcon
         },
-
         {
             id: 'callrecords',
             title: 'Agent Call Records',
             type: 'item',
             url: '/AgentCallrecords',
-            // icon: icons.AppBlockingOutlinedIcon,
-            icon: icons.RadioButtonCheckedSharpIcon,
+            icon: icons.CallOutlinedIcon
         },
-
         {
             id: 'liveuser',
-            title: ' Online Agent',
+            title: 'Online Agent',
             type: 'item',
             url: '/getOnlineAgent',
-            // icon: icons.AppBlockingOutlinedIcon,
-            icon: icons.RadioButtonCheckedSharpIcon,
+            icon: icons.OnlinePredictionOutlinedIcon
         }
     ]
 };

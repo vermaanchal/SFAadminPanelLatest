@@ -1,47 +1,42 @@
-// assets
-import { DashboardOutlined } from '@ant-design/icons';
+import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
 import FilterFramesOutlinedIcon from '@mui/icons-material/FilterFramesOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
+import ElectricScooterOutlinedIcon from '@mui/icons-material/ElectricScooterOutlined';
 
-// icons
 const icons = {
-  DashboardOutlined, FilterFramesOutlinedIcon, RadioButtonCheckedSharpIcon
+  DesignServicesOutlinedIcon,
+  FilterFramesOutlinedIcon,
+  ColorLensOutlinedIcon,
+  ElectricScooterOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
 const updateFrame = {
   id: 'update-coins',
   title: 'Customizations',
   type: 'group',
+  icon: icons.DesignServicesOutlinedIcon,
   children: [
     {
       id: 'update-frame',
       title: 'Add/Remove Frame',
       type: 'item',
       url: '/updateFrame',
-      // icon: icons.FilterFramesOutlinedIcon,
-      icon: icons.RadioButtonCheckedSharpIcon,
-      // breadcrumbs: false
+      icon: icons.FilterFramesOutlinedIcon
     },
-       {
-          id: 'update-theme',
-          title: 'Add/Remove Theme',
-          type: 'item',
-          url: '/updateTheme',
-          // icon: icons.ColorLensIcon,
-          icon: icons.RadioButtonCheckedSharpIcon,
-          // breadcrumbs: false
-        },
-          {
-              id: 'add-deduct-ride',
-              title: 'Add/Remove Ride',
-              type: 'item',
-              url: '/UserRide',
-              // icon: icons.DirectionsBikeOutlinedIcon,
-              icon: icons.RadioButtonCheckedSharpIcon,
-              // breadcrumbs: false
-          }
+    {
+      id: 'update-theme',
+      title: 'Add/Remove Theme',
+      type: 'item',
+      url: '/updateTheme',
+      icon: icons.ColorLensOutlinedIcon
+    },
+    {
+      id: 'add-deduct-ride',
+      title: 'Add/Remove Ride',
+      type: 'item',
+      url: '/UserRide',
+      icon: icons.ElectricScooterOutlinedIcon
+    }
   ]
 };
 

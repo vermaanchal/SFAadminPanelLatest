@@ -1,44 +1,24 @@
-// assets
-import {
-    AppstoreAddOutlined,
-    AntDesignOutlined,
-    BarcodeOutlined,
-    BgColorsOutlined,
-    LoadingOutlined
-} from '@ant-design/icons';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
-import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
-import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import SystemUpdateAltOutlinedIcon from '@mui/icons-material/SystemUpdateAltOutlined';
+import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 
 const icons = {
-    DescriptionOutlinedIcon,
-    BgColorsOutlined,
-    BarcodeOutlined,
-    AntDesignOutlined,
-    LoadingOutlined,
-    AppstoreAddOutlined,
-    ContactPhoneOutlinedIcon,
-    ReceiptLongOutlinedIcon, ForwardToInboxOutlinedIcon, CalendarMonthIcon, RadioButtonCheckedSharpIcon
+    SystemUpdateAltOutlinedIcon,
+    UpdateOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - UTILITIES ||============================== //
 
 const versionControl = {
     id: 'version_control',
     title: 'Version',
     type: 'group',
+    icon: icons.SystemUpdateAltOutlinedIcon,
     children: [
         {
-            id: 'vesion_control',
+            id: 'version_update',
             title: 'Version Update',
             type: 'item',
             url: '/version_control',
-            // icon: icons.ReceiptLongOutlinedIcon
-            // icon: icons.RadioButtonCheckedSharpIcon
-        },
+            icon: icons.UpdateOutlinedIcon
+        }
     ]
 };
 

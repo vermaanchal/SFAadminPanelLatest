@@ -1,41 +1,33 @@
-// assets
-import { DashboardOutlined } from '@ant-design/icons';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
-// import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 
-
-// icons
 const icons = {
-  DashboardOutlined,MonetizationOnOutlinedIcon,PriceChangeOutlinedIcon,RadioButtonCheckedSharpIcon
+  AccountBalanceOutlinedIcon,
+  AttachMoneyOutlinedIcon,
+  EmojiEventsOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
 const updateCoins = {
   id: 'update-coins',
   title: 'Coin / Bean Management',
   type: 'group',
+  icon: icons.AccountBalanceOutlinedIcon,
   children: [
     {
       id: 'add-deduct-coins',
-      title: 'Add/Deduct Coins ',
+      title: 'Add/Deduct Coins',
       type: 'item',
       url: '/UpdateUserCoin',
-      // icon: icons.PriceChangeOutlinedIcon,
-      icon: icons.RadioButtonCheckedSharpIcon,
-      // breadcrumbs: false
+      icon: icons.AttachMoneyOutlinedIcon
     },
     {
-          id: 'add-deduct-beans',
-          title: 'Add/Deduct Beans ',
-          type: 'item',
-          url: '/BeanTransferView',
-          // icon: icons.DashboardOutlined,
-          icon: icons.RadioButtonCheckedSharpIcon,
-          // breadcrumbs: false
-        }
+      id: 'add-deduct-beans',
+      title: 'Add/Deduct Beans',
+      type: 'item',
+      url: '/BeanTransferView',
+      icon: icons.EmojiEventsOutlinedIcon
+    }
   ]
 };
 

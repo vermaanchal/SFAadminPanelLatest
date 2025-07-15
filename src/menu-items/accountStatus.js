@@ -1,36 +1,32 @@
-// assets
-import { StopOutlined } from '@ant-design/icons';
-import AppBlockingOutlinedIcon from '@mui/icons-material/AppBlockingOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import GppMaybeOutlinedIcon from '@mui/icons-material/GppMaybeOutlined';
+import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import PhonelinkLockOutlinedIcon from '@mui/icons-material/PhonelinkLockOutlined';
 
-// icons
 const icons = {
-  StopOutlined,
-  AppBlockingOutlinedIcon,RadioButtonCheckedSharpIcon
+  GppMaybeOutlinedIcon,
+  BlockOutlinedIcon,
+  PhonelinkLockOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - SAMPLE PAGE & DOCUMENTATION ||============================== //
 
 const accountStatus = {
   id: 'account-status',
   title: 'Account Status',
   type: 'group',
+  icon: icons.GppMaybeOutlinedIcon,
   children: [
     {
       id: 'id-ban/unban',
       title: 'ID Ban/UnBan',
       type: 'item',
       url: '/IDBanUnBan',
-      // icon: icons.StopOutlined
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.BlockOutlinedIcon
     },
     {
       id: 'device-id',
       title: 'Device Id Block/UnBlock',
       type: 'item',
       url: '/DeviceBlock',
-      // icon: icons.AppBlockingOutlinedIcon,
-      icon: icons.RadioButtonCheckedSharpIcon,
+      icon: icons.PhonelinkLockOutlinedIcon
     }
   ]
 };

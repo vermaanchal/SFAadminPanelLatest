@@ -10,7 +10,7 @@ async function fetchDynamicMenuItems() {
   if (assignId === '0') {
     return staticMenuItems;
   }
-  
+
   try {
     let response = await fetch(`${baseURLProd}AssignPages`, {
       method: "POST",
@@ -27,11 +27,11 @@ async function fetchDynamicMenuItems() {
 
     const dynamicItems = res.assignPagesList.map(item => {
       const mappedItem = menuMapping[item.pageName];
-      
+
       if (mappedItem) {
         return mappedItem;
       }
-      
+
       return {
         id: item.pageId,
         title: item.pageName,
