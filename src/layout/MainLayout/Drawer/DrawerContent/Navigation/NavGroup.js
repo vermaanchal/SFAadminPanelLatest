@@ -94,7 +94,7 @@ const NavGroup = ({ item }) => {
           </Typography>
         );
       case 'item':
-        return  <NavItem key={menuItem.id} item={menuItem} level={1} />
+        return <NavItem key={menuItem.id} item={menuItem} level={1} />
       default:
         return (
           <Typography key={menuItem.id} variant="h6" color="error" align="center">
@@ -104,32 +104,32 @@ const NavGroup = ({ item }) => {
     }
   });
 
-   const isSingleItem =
+  const isSingleItem =
     item.children?.length === 1 && item.children[0].type === 'item';
   return (
-    <List sx={{ml: isSingleItem ? '-10px' : 0,mb: drawerOpen ? 0 : 0, py: 0, zIndex: 0 }}>
-       {isSingleItem ? (navCollapse) :
-     ( item.title && drawerOpen && (
-        <Accordion   
-        sx={{
-          borderRadius: 0,
-          boxShadow: 'none',
-          border: 'none'
-        }}>
-          <AccordionSummary
-            expandIcon={<ArrowDropDownIcon  />}
-            aria-controls="panel1-content"
-            id={item.title}  
-          >
-            <Typography component="span" >{item.title}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
+    <List sx={{ ml: isSingleItem ? '-10px' : 0, mb: drawerOpen ? 0 : 0, py: 0, zIndex: 0 }}>
+      {isSingleItem ? (navCollapse) :
+        (item.title && drawerOpen && (
+          <Accordion
+            sx={{
+              borderRadius: 0,
+              boxShadow: 'none',
+              border: 'none'
+            }}>
+            <AccordionSummary
+              expandIcon={<ArrowDropDownIcon />}
+              aria-controls="panel1-content"
+              id={item.title}
+            >
+              <Typography component="span" >{item.title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
               <Box sx={{ p: 0, bgcolor: 'background.paper' }}>
                 {navCollapse}
               </Box>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+            </AccordionDetails>
+          </Accordion>
+        ))}
     </List>
   );
 };

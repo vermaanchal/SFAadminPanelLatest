@@ -64,19 +64,19 @@ const NavItem = ({ item, level }) => {
           '&:hover': {
             // bgcolor: 'primary.lighter',
             // bgcolor: '#ffedde'
-              bgcolor: '#F5f5f5'
+            bgcolor: '#F5f5f5'
           },
           '&.Mui-selected': {
             // bgcolor: 'primary.lighter',
             // bgcolor: '#ffedde',
-              bgcolor: '#F5f5f5',
+            bgcolor: '#F5f5f5',
             // borderRight: `2px solid ${theme.palette.primary.main}`,
             color: iconSelectedColor,
             '&:hover': {
               color: iconSelectedColor,
               // bgcolor: 'primary.lighter',
               // bgcolor: '#ffedde',
-                bgcolor: '#F5f5f5'
+              bgcolor: '#F5f5f5'
             }
           }
         }),
@@ -84,18 +84,18 @@ const NavItem = ({ item, level }) => {
           '&:hover': {
             // bgcolor: 'transparent',
             // bgcolor: '#ffedde'
-              bgcolor: '#F5f5f5'
+            bgcolor: '#F5f5f5'
 
           },
           '&.Mui-selected': {
             '&:hover': {
               // bgcolor: 'transparent',
               // bgcolor: '#ffedde'
-                 bgcolor: '#F5f5f5'
+              bgcolor: '#F5f5f5'
             },
             // bgcolor: 'transparent',
             // bgcolor: '#ffedde'
-              bgcolor: '#F5f5f5'
+            bgcolor: '#F5f5f5'
           }
         })
       }}
@@ -117,11 +117,11 @@ const NavItem = ({ item, level }) => {
             }),
             ...(!drawerOpen &&
               isSelected && {
-                bgcolor: 'primary.lighter',
-                '&:hover': {
-                  bgcolor: 'primary.lighter'
-                }
-              })
+              bgcolor: 'primary.lighter',
+              '&:hover': {
+                bgcolor: 'primary.lighter'
+              }
+            })
           }}
         >
           {itemIcon}
