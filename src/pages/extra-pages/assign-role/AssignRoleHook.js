@@ -13,6 +13,8 @@ const AssignRoleHook = () => {
     const [userValue, setUserValue] = useState("");
     const [loading, setLoading] = useState(true);
 
+    console.log("roleId", roleId)
+
     const fetchData = async () => {
         setLoading(true)
         try {
@@ -66,6 +68,7 @@ const AssignRoleHook = () => {
         setFilter(result)
     }, [search])
 
+
     // useEffect(() => {
     //     if (searchnoData.length >= 7) {
     //         fetchApiData(searchnoData);
@@ -75,7 +78,10 @@ const AssignRoleHook = () => {
 
     //-------------select value--------------------
     const handleSelectChange = (e) => {
-        setRoleId(e.target.value)
+        const {
+            target: { value },
+        } = e;
+        setRoleId(typeof value === 'string' ? value.split(',') : value);
     };
 
     //---------------Assign Role-------------//
@@ -98,7 +104,7 @@ const AssignRoleHook = () => {
             else {
                 toast.success("Role assigned Successfully")
                 setUserValue("")
-                setRoleId("")
+                setRoleId([])
                 fetchData()
             }
         }
