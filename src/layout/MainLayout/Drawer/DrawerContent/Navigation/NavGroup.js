@@ -77,7 +77,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 // project import
 import NavItem from './NavItem';
-import { Margin, Padding } from '../../../../../../node_modules/@mui/icons-material/index';
+import { VariableSizeGrid } from 'react-window';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
@@ -106,6 +106,8 @@ const NavGroup = ({ item }) => {
 
   const isSingleItem =
     item.children?.length === 1 && item.children[0].type === 'item';
+  console.log("item****", item)
+
   return (
     <List sx={{ ml: isSingleItem ? '-10px' : 0, mb: drawerOpen ? 0 : 0, py: 0, zIndex: 0 }}>
       {isSingleItem ? (navCollapse) :
@@ -121,6 +123,11 @@ const NavGroup = ({ item }) => {
               aria-controls="panel1-content"
               id={item.title}
             >
+              {item.icon && (
+                <Box component="span" sx={{ display: 'flex', alignItems: 'center', mr: 1 }}>
+                  <item.icon style={{ fontSize: '1.2rem', marginRight: 0 }} />
+                </Box>
+              )}
               <Typography component="span" >{item.title}</Typography>
             </AccordionSummary>
             <AccordionDetails>

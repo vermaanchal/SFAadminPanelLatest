@@ -1,8 +1,10 @@
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 
 const icons = {
+  PriceChangeOutlinedIcon,
   AccountBalanceOutlinedIcon,
   AttachMoneyOutlinedIcon,
   EmojiEventsOutlinedIcon
@@ -12,7 +14,7 @@ const updateCoins = {
   id: 'update-coins',
   title: 'Coin / Bean Management',
   type: 'group',
-  icon: icons.AccountBalanceOutlinedIcon,
+  icon: icons.PriceChangeOutlinedIcon,
   children: [
     {
       id: 'add-deduct-coins',

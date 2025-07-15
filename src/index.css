@@ -218,7 +218,7 @@ span.editIcon {
   line-height: 14px !important;
 }
 
-.dashboardCard{
+.dashboardCard {
   padding: 30px;
   margin-left: 15px;
   background: #FFFFFF;
@@ -234,6 +234,7 @@ span.editIcon {
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
 }
+
 .dashCard2 {
   padding: 30px;
   margin-left: 15px;
@@ -241,6 +242,7 @@ span.editIcon {
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
 }
+
 .dashCard3 {
   padding: 30px;
   margin-left: 15px;
@@ -248,10 +250,16 @@ span.editIcon {
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
 }
+
 .dashCard4 {
   padding: 30px;
   margin-left: 15px;
   background: #fde6e9;
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
+}
+
+
+.css-15v22id-MuiAccordionDetails-root {
+  padding: 0px 16px 0px;
 }

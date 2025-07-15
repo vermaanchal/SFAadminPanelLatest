@@ -58,8 +58,8 @@ const NavItem = ({ item, level }) => {
       selected={isSelected}
       sx={{
         zIndex: 1201,
-        pl: drawerOpen ? `${level * 28}px` : 0.5,
-        py: !drawerOpen && level === 1 ? 0.25 : 0.5,
+        pl: drawerOpen ? `${level * 25}px` : 0.5,
+        py: !drawerOpen && level === 1 ? 0 : 0.5,
         ...(drawerOpen && {
           '&:hover': {
             // bgcolor: 'primary.lighter',
