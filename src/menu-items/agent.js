@@ -2,12 +2,14 @@ import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
 import MarkEmailUnreadOutlinedIcon from '@mui/icons-material/MarkEmailUnreadOutlined';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import OnlinePredictionOutlinedIcon from '@mui/icons-material/OnlinePredictionOutlined';
+import ManageHistoryOutlinedIcon from '@mui/icons-material/ManageHistoryOutlined';
 
 const icons = {
     SupportAgentOutlinedIcon,
     MarkEmailUnreadOutlinedIcon,
     CallOutlinedIcon,
-    OnlinePredictionOutlinedIcon
+    OnlinePredictionOutlinedIcon,
+    ManageHistoryOutlinedIcon
 };
 
 const agentrecord = {
@@ -36,6 +38,13 @@ const agentrecord = {
             type: 'item',
             url: '/getOnlineAgent',
             icon: icons.OnlinePredictionOutlinedIcon
+        },
+        {
+            id: 'agentlogs',
+            title: 'Agent Logs',
+            type: 'item',
+            url: '/agentLogs',
+            icon: icons.ManageHistoryOutlinedIcon
         }
     ]
 };

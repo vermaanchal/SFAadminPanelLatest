@@ -106,7 +106,6 @@ const NavGroup = ({ item }) => {
 
   const isSingleItem =
     item.children?.length === 1 && item.children[0].type === 'item';
-  console.log("item****", item)
 
   return (
     <List sx={{ ml: isSingleItem ? '-10px' : 0, mb: drawerOpen ? 0 : 0, py: 0, zIndex: 0 }}>

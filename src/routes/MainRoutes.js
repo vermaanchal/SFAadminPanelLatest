@@ -66,6 +66,7 @@ import { useRoutes, Navigate } from 'react-router-dom';
 import ProtectedRoute from '../components/ProtectedRoute'
 import WhatsappLogs from 'pages/extra-pages/otpLogs/WhatsappLogs';
 import VersionUpdate from 'pages/extra-pages/versionControl/VersionUpdate';
+import AgentLogs from 'pages/extra-pages/requests/AgentLogs';
 
 // render - dashboard
 const email = localStorage.getItem('uservalue');
@@ -341,6 +342,13 @@ const MainRoutes = {
       element: (
         <ProtectedRoute>
           <GetonlineLiveAgent />
+        </ProtectedRoute>)
+    },
+    {
+      path: 'agentLogs',
+      element: (
+        <ProtectedRoute>
+          <AgentLogs />
         </ProtectedRoute>)
     },
     {

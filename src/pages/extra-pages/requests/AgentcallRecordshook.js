@@ -15,7 +15,6 @@ const AgentcallRecordshook = () => {
       })
       const res = await req.json()
       setLoading(false)
-      console.log("data responce", res);
       setData(res.callRecords)
     } catch (error) {
       console.log(error)
