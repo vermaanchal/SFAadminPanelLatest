@@ -12,7 +12,7 @@ const icons = {
 
 const updateCoins = {
   id: 'update-coins',
-  title: 'Coin / Bean Management',
+  // title: 'Coin / Bean Management',
   type: 'group',
   icon: icons.PriceChangeOutlinedIcon,
   children: [

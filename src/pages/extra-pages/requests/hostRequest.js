@@ -129,7 +129,7 @@ const HostRequest = () => {
               <>
                 <button
                   className='btn btn-primary me-2'
-                  onClick={() => handleApprove(agencyCode, userId)}
+                  onClick={() => handleApprove(row)}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
                   Approve
@@ -152,7 +152,6 @@ const HostRequest = () => {
               <>
                 <button
                   className='btn btn-primary me-2'
-                  onClick={() => handleApprove(row.id)}
                   disabled={row.status1 === 'Approve'}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
@@ -160,7 +159,7 @@ const HostRequest = () => {
                 </button>
                 <button
                   className='btn btn-primary'
-                  onClick={() => handleReject(row.id)}
+                  onClick={() => handleReject(agencyCode, userId)}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
                   Reject
@@ -171,14 +170,13 @@ const HostRequest = () => {
               <>
                 <button
                   className='btn btn-primary me-2'
-                  onClick={() => handleApprove(row.id)}
+                  onClick={() => handleApprove(row)}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
                   Approve
                 </button>
                 <button
                   className='btn btn-primary'
-                  onClick={() => handleReject(row.id)}
                   disabled={row.status1 === 'Reject'}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >

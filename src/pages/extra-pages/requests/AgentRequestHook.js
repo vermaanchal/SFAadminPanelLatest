@@ -39,6 +39,7 @@ const AgentRequestHook = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
     useEffect(() => {
         const result = data.filter((item) => {
             const i_search = search.toLowerCase();
@@ -82,55 +83,55 @@ const AgentRequestHook = () => {
 
     const handleReject = async (userId) => {
         try {
-          if (window.confirm("Are you sure to Reject the Request ?")) {
-            const response = await fetch(`${baseURLProd}RejectAgentUser`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                userId: userId,
-                isApproved: false,
-              }),
-            });
-            const res = await response.json()
-            if (response.ok) {
-              toast.success(res.message);
-              fetchData(); // Refresh the list
-            } else {
-              toast.error("Failed to reject request");
+            if (window.confirm("Are you sure to Reject the Request ?")) {
+                const response = await fetch(`${baseURLProd}RejectAgentUser`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: userId,
+                        isApproved: false,
+                    }),
+                });
+                const res = await response.json()
+                if (response.ok) {
+                    toast.success(res.message);
+                    fetchData(); // Refresh the list
+                } else {
+                    toast.error("Failed to reject request");
+                }
             }
-          }
         } catch (error) {
-          console.error('Error rejecting request:', error);
-          toast.error("An error occurred while rejecting the request");
+            console.error('Error rejecting request:', error);
+            toast.error("An error occurred while rejecting the request");
         }
-      };
-          const handleRemoveagent = async (userId) => {
+    };
+    const handleRemoveagent = async (userId) => {
         try {
-          if (window.confirm("Are you sure to Remove the Agent ?")) {
-            const response = await fetch(`${baseURLProd}Agent_Rejection`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                userId: userId,
-              }),
-            });
-            const res = await response.json()
-            if (response.ok) {
-              toast.success(res.message);
-              fetchData();
-            } else {
-              toast.error("Failed to reject request");
+            if (window.confirm("Are you sure to Remove the Agent ?")) {
+                const response = await fetch(`${baseURLProd}Agent_Rejection`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: userId,
+                    }),
+                });
+                const res = await response.json()
+                if (response.ok) {
+                    toast.success(res.message);
+                    fetchData();
+                } else {
+                    toast.error("Failed to reject request");
+                }
             }
-          }
         } catch (error) {
-          console.error('Error rejecting request:', error);
-          toast.error("An error occurred while rejecting the request");
+            console.error('Error rejecting request:', error);
+            toast.error("An error occurred while rejecting the request");
         }
-      };
+    };
 
     //----------------------image download-------------------//
     const handleDownload = (imageUrl, imageName) => {
@@ -183,7 +184,7 @@ const AgentRequestHook = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({}) 
+                body: JSON.stringify({})
             });
             const data = await response.json();
             setFilteredData(data.agentList || []);
@@ -243,7 +244,7 @@ const AgentRequestHook = () => {
         document.body.appendChild(link);
         link.click();
     };
-      
+
 
     return {
         filter, search, setSearch, openPreview, setOpenPreview, previewImageUrl, setPreviewImageUrl,
@@ -251,7 +252,7 @@ const AgentRequestHook = () => {
         handleReject, downloadCSV, data, handleReset, handleApproveChange, handleRejectChange, handleSubmit, status,
         showApproveButton, showRejectButton, loading, filteredData, currentView, setCurrentView,
         audioprice, videoprice, adminCommision,
-        setAudioPrice, setVideoPrice, setAdmincommision,handleRemoveagent
+        setAudioPrice, setVideoPrice, setAdmincommision, handleRemoveagent
     }
 }
 

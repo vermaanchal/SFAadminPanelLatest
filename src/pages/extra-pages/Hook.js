@@ -2,6 +2,8 @@ import { baseURLProd } from 'api/api';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Papa from 'papaparse';
+import axios from 'axios';
+
 const Hook = () => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState('')
@@ -16,6 +18,32 @@ const Hook = () => {
     const [dob, setDob] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(true);
+
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
+
+    const handleDateRangeFilter = async (e) => {
+        e.preventDefault();
+        const payload = { fromDate, toDate }
+
+        if (payload && fromDate && toDate) {
+            try {
+                setLoading(true);
+                let res = await axios.post(`${baseURLProd}GetAppUserDetailsByDateRange`, payload)
+                if (res) {
+                    setFilter(res?.data?.userList)
+                    setFromDate('')
+                    setToDate('')
+                }
+            }
+            catch (error) {
+                console.log(error)
+            } finally {
+                setLoading(false);
+            }
+        }
+    }
+
     //---------------------fetch data---------------//
     const fetchData = async () => {
         setLoading(true);
@@ -65,7 +93,7 @@ const Hook = () => {
     useEffect(() => {
         const result = data.filter((item) => {
             return item.userId.toLowerCase().includes(search.toLocaleLowerCase()) || item.name.toLowerCase().includes(search.toLocaleLowerCase()) || item.mobile.toLowerCase().includes(search.toLocaleLowerCase())
-           
+
             // 
         })
         setFilter(result)
@@ -211,7 +239,7 @@ const Hook = () => {
         loading,
         filter, search, openPreview, previewImageUrl, setSearch, setOpenPreview, setPreviewImageUrl, handleReset,
         handleClosePreview, handleDelete, handleDownload, handleImageClick, handleEdit, handleSubmit, downloadCSV, data,
-        open, handleClose, userId, name, dob, mobile, email, password, setUserId, setName, setDob, setMobile, setEmail, setPassword
+        open, handleClose, userId, name, dob, mobile, email, password, setUserId, setName, setDob, setMobile, setEmail, setPassword, setFromDate, setToDate, fromDate, toDate, handleDateRangeFilter
     }
 }
 

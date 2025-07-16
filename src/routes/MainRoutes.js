@@ -67,6 +67,7 @@ import ProtectedRoute from '../components/ProtectedRoute'
 import WhatsappLogs from 'pages/extra-pages/otpLogs/WhatsappLogs';
 import VersionUpdate from 'pages/extra-pages/versionControl/VersionUpdate';
 import AgentLogs from 'pages/extra-pages/requests/AgentLogs';
+import ApproveHostRequest from 'pages/extra-pages/requests/ApproveHostRequest';
 
 // render - dashboard
 const email = localStorage.getItem('uservalue');
@@ -126,6 +127,13 @@ const MainRoutes = {
           <ProtectedRoute>
             <HostRequest />
           </ProtectedRoute>)
+    },
+    {
+      path: 'ApproveHostRequest',
+      element: (
+        <ProtectedRoute>
+          <ApproveHostRequest />
+        </ProtectedRoute>)
     },
     {
       path: 'AdminAgencyHost',

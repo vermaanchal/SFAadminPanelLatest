@@ -16,6 +16,7 @@ import DownloadIcon from '@mui/icons-material/CloudDownload';
 import PeopleIcon from '@mui/icons-material/People';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BusinessIcon from '@mui/icons-material/Business';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 import p1 from "../../assets/images/users/p1.png"
 import p2 from "../../assets/images/users/p2.png"
@@ -166,7 +167,14 @@ const DashboardDefault = () => {
       icon: <BusinessIcon sx={{ fontSize: 34, color: '#0284C7' }} />,
       gradient: 'linear-gradient(135deg, #E0F2FE, #BAE6FD)',
     },
+    {
+      title: 'New Users',
+      value: data?.newUsers,
+      icon: <PersonAddAltIcon sx={{ fontSize: 34, color: '#6366F1' }} />,
+      gradient: 'linear-gradient(135deg, #EEF2FF, #E0E7FF)',
+    },
   ];
+
 
 
 
