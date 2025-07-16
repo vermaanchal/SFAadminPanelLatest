@@ -1,40 +1,35 @@
-// assets
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import GamepadOutlinedIcon from '@mui/icons-material/GamepadOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import LockResetOutlinedIcon from '@mui/icons-material/LockResetOutlined';
 
-// icons
 const icons = {
-  DriveFolderUploadIcon, GamepadOutlinedIcon,AccountBalanceWalletOutlinedIcon,RadioButtonCheckedSharpIcon
+  AccountBalanceWalletOutlinedIcon,
+  ShoppingCartOutlinedIcon,
+  LockResetOutlinedIcon
 };
 
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
+// ==============================|| MENU ITEMS - PURCHASE & WALLET ||============================== //
 
 const playstorepurchase = {
   id: 'playStorePurchaseRecord',
   title: 'Purchase & Wallet',
   type: 'group',
+  icon: icons.AccountBalanceWalletOutlinedIcon,
   children: [
     {
       id: 'play-Store-Purchase-Record',
       title: 'Play Store Purchase Record',
       type: 'item',
       url: '/playStorePurchaseRecord',
-      // icon: icons.GamepadOutlinedIcon,
-      icon: icons.RadioButtonCheckedSharpIcon,
-      //   breadcrumbs: false
+      icon: icons.ShoppingCartOutlinedIcon
     },
-     {
-    id: 'walletFreezeunfreeze',
+    {
+      id: 'walletFreezeunfreeze',
       title: 'Wallet Freeze/Unfreeze',
       type: 'item',
       url: '/walletFreezeUnfreeze',
-      // icon: icons.AccountBalanceWalletOutlinedIcon,
-      icon: icons.RadioButtonCheckedSharpIcon,
-      // breadcrumbs: false
-    },
-   
+      icon: icons.LockResetOutlinedIcon
+    }
   ]
 };
 

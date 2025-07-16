@@ -1,28 +1,25 @@
-// assets
-import { DashboardOutlined } from '@ant-design/icons';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import SavingsIcon from '@mui/icons-material/Savings';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
-
-// icons
 const icons = {
-  DashboardOutlined,RadioButtonCheckedSharpIcon
+  SavingsIcon,
+  AccountBalanceWalletIcon
 };
 
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
+// ==============================|| MENU ITEMS - BEAN MANAGEMENT ||============================== //
 
 const updateBeans = {
   id: 'update-beans',
-  // title: 'Coin / Bean Management',
+  title: 'Bean Management',
   type: 'group',
+  icon: icons.SavingsIcon,
   children: [
     {
       id: 'add-deduct-beans',
-      title: 'Add/Deduct Beans ',
+      title: 'Add / Deduct Beans',
       type: 'item',
       url: '/BeanTransferView',
-      // icon: icons.DashboardOutlined,
-      icon: icons.RadioButtonCheckedSharpIcon,
-      // breadcrumbs: false
+      icon: icons.AccountBalanceWalletIcon
     }
   ]
 };

@@ -1,5 +1,4 @@
 import MainCard from 'components/MainCard';
-import { Grid, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import DataTable from 'react-data-table-component';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { ToastContainer } from 'react-toastify';
@@ -8,6 +7,17 @@ import AddDesignationHook from '../add-designation/AddDesignationHook';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+  Grid,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  OutlinedInput,
+  Checkbox,
+  ListItemText,
+  TextField
+} from '@mui/material';
 
 const AssignRole = () => {
   const {
@@ -61,7 +71,7 @@ const AssignRole = () => {
       cell: (row) => (
         <button
           className='btn btn-danger'
-          style={{ backgroundColor: '#EF9848', border: '0px',fontSize:'14px' }}
+          style={{ backgroundColor: '#EF9848', border: '0px', fontSize: '14px' }}
           onClick={() => handleRemove(row.userId)}
         >
           Remove
@@ -80,7 +90,6 @@ const AssignRole = () => {
     {
       name: "User Id",
       cell: (row) => <div className="custom-cell">{row.userId}</div>,
-
     },
     {
       name: " Name",
@@ -96,7 +105,7 @@ const AssignRole = () => {
       ),
       width: ''
     }
-  ]
+  ];
 
   const tableHeaderStyle = {
     headCells: {
@@ -113,6 +122,88 @@ const AssignRole = () => {
       }
     }
   };
+
+  const SubHeaderComponent = (
+    <div
+      className="d-flex flex-wrap align-items-center w-100"
+      style={{ justifyContent: 'flex-end', gap: '16px' }}
+    >
+      {/* User ID Custom Input */}
+      <FormControl variant="outlined" size="small" sx={{ minWidth: 200 }}>
+        <InputLabel htmlFor="user-id-input">User ID</InputLabel>
+        <OutlinedInput
+          id="user-id-input"
+          value={userValue}
+          onChange={(e) => setUserValue(e.target.value)}
+          label="User ID"
+        />
+      </FormControl>
+
+      {/* Role MultiSelect */}
+      <FormControl size="small" sx={{ minWidth: 250, maxWidth: 250 }}>
+        <InputLabel id="select-label">Select Role</InputLabel>
+        <Select
+          labelId="select-label"
+          multiple
+          value={roleId}
+          onChange={handleSelectChange}
+          input={<OutlinedInput label="Select Role" />}
+          renderValue={(selected) => {
+            const selectedNames = role
+              .filter((r) => selected.includes(r.roleId))
+              .map((r) => r.roleName)
+              .join(', ');
+            return (
+              <div
+                style={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
+                }}
+              >
+                {selectedNames}
+              </div>
+            );
+          }}
+        >
+          {role.map((option) => (
+            <MenuItem
+              key={option.roleId}
+              value={option.roleId}
+              sx={{ fontSize: '0.8rem' }}
+            >
+              <Checkbox
+                checked={roleId.indexOf(option.roleId) > -1}
+                size="small"
+                sx={{ padding: '2px', marginRight: '6px' }}
+              />
+              <ListItemText
+                primary={option.roleName}
+                primaryTypographyProps={{ fontSize: '0.8rem' }}
+              />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+
+      {/* Submit Button */}
+      <button
+        className="btn btn-primary"
+        style={{
+          backgroundColor: '#EF9848',
+          border: '0px',
+          padding: '8px 20px',
+          height: '40px',
+          marginTop: '2px'
+        }}
+        onClick={handleAssignRole}
+      >
+        Submit
+      </button>
+    </div>
+  );
+
 
   return (
     <MainCard title="Create Reseller">
@@ -134,53 +225,7 @@ const AssignRole = () => {
             customStyles={tableHeaderStyle}
             className='data-table'
             subHeader
-            subHeaderComponent={
-              <div className='d-flex justify-content-between'>
-                <div className='d-flex'>
-                  {/* <input
-                    type='text'
-                    className='form-control searchInput'
-                    placeholder='Search User Id'
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                  <div className='searchIcon'><SearchOutlinedIcon /></div> */}
-                </div>
-                <div className='d-flex'>
-                  <input
-                    type='text'
-                    className='form-control searchInput'
-                    placeholder='Enter User Id'
-                    value={userValue}
-                    onChange={(e) => setUserValue(e.target.value)}
-                  />
-                  <FormControl className='designationForm'>
-                    <InputLabel id="select-label">Select Role</InputLabel>
-                    <Select
-                      labelId="select-label"
-                      value={roleId}
-                      onChange={handleSelectChange}
-                      className='selectDiv'
-                      label="Select Role"
-                    >
-                      <MenuItem value="">Select Role</MenuItem>
-                      {role.map((option) => (
-                        <MenuItem key={option.roleId} value={option.roleName}>
-                          {option.roleName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <button
-                    className='btn btn-primary ms-4'
-                    style={{ backgroundColor: '#EF9848', border: '0px', padding: '10px' }}
-                    onClick={handleAssignRole}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            }
+            subHeaderComponent={SubHeaderComponent}
           />
         ) : (
           <DataTable
@@ -190,53 +235,7 @@ const AssignRole = () => {
             className='data-table'
             subHeader
             customStyles={tableHeaderStyle}
-            subHeaderComponent={
-              <div className='d-flex justify-content-between'>
-                <div className='d-flex'>
-                  {/* <input
-                    type='text'
-                    className='form-control searchInput'
-                    placeholder='Search User Id'
-                    value={searchnoData}
-                    onChange={(e) => setSearchnoData(e.target.value)}
-                  />
-                  <div className='searchIcon'><SearchOutlinedIcon /></div> */}
-                </div>
-                <div className='d-flex gap-2'>
-                  <input
-                    type='text'
-                    className='form-control searchInput'
-                    placeholder='Enter User Id'
-                    value={userValue}
-                    onChange={(e) => setUserValue(e.target.value)}
-                  />
-                  <FormControl className='designationForm'>
-                    <InputLabel id="select-label">Select Role</InputLabel>
-                    <Select
-                      labelId="select-label"
-                      value={roleId}
-                      onChange={handleSelectChange}
-                      className='selectDiv'
-                      label="Select Role"
-                    >
-                      <MenuItem value="">Select Role</MenuItem>
-                      {role.map((option) => (
-                        <MenuItem key={option.roleId} value={option.roleId}>
-                          {option.roleName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <button
-                    className='btn btn-primary ms-4'
-                    style={{ backgroundColor: '#EF9848', border: '0px', padding: '10px' }}
-                    onClick={handleAssignRole}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            }
+            subHeaderComponent={SubHeaderComponent}
           />
         )}
       </Grid>

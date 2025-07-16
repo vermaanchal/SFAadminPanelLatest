@@ -1,5 +1,5 @@
 // material-ui
-import { Box} from '@mui/material';
+import { Box } from '@mui/material';
 
 // assets
 // import { SearchOutlined } from '@ant-design/icons';
@@ -8,7 +8,7 @@ import { Box} from '@mui/material';
 
 const Search = () => (
   <Box sx={{ width: '100%', ml: { xs: 0, md: 1 } }}>
-  
+
   </Box>
 );
 

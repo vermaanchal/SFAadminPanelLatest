@@ -1,77 +1,59 @@
-// assets
-import {
-  AppstoreAddOutlined,
-  AntDesignOutlined,
-  BarcodeOutlined,
-  BgColorsOutlined,
-  LoadingOutlined
-} from '@ant-design/icons';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
-import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import ForwardToInboxOutlinedIcon from '@mui/icons-material/ForwardToInboxOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 
 const icons = {
-  DescriptionOutlinedIcon,
-  BgColorsOutlined,
-  BarcodeOutlined,
-  AntDesignOutlined,
-  LoadingOutlined,
-  AppstoreAddOutlined,
-  ContactPhoneOutlinedIcon,
-  ReceiptLongOutlinedIcon, ForwardToInboxOutlinedIcon, CalendarMonthIcon, RadioButtonCheckedSharpIcon
+  InsertChartOutlinedIcon,
+  ReceiptLongOutlinedIcon,
+  ForwardToInboxOutlinedIcon,
+  CalendarMonthOutlinedIcon,
+  FeedbackOutlinedIcon,
+  ForumOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - UTILITIES ||============================== //
 
 const reports = {
   id: 'reports',
   title: 'Reports',
   type: 'group',
+  icon: icons.InsertChartOutlinedIcon,
   children: [
     {
       id: 'receiving-report',
       title: 'Host Receiving Report',
       type: 'item',
       url: '/HostReceivingReport',
-      // icon: icons.ReceiptLongOutlinedIcon
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.ReceiptLongOutlinedIcon
     },
     {
       id: 'sending-report',
       title: 'User Sending Report',
       type: 'item',
       url: '/UserSendingReport',
-      // icon: icons.ForwardToInboxOutlinedIcon
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.ForwardToInboxOutlinedIcon
     },
     {
       id: 'monthly-report',
       title: 'Monthly Report',
       type: 'item',
       url: '/MonthlySenderReport',
-      // icon: icons.CalendarMonthIcon
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.CalendarMonthOutlinedIcon
     },
     {
-          id: 'user-report-feedback',
-          title: 'UserReport &Feedback',
-          type: 'item',
-          url: '/UserReport',
-          // icon: icons.ContactMailOutlinedIcon,
-          icon: icons.RadioButtonCheckedSharpIcon,
-          // breadcrumbs: false
+      id: 'user-report-feedback',
+      title: 'UserReport & Feedback',
+      type: 'item',
+      url: '/UserReport',
+      icon: icons.FeedbackOutlinedIcon
     },
     {
-          id: 'agent-report-feedback',
-          title: 'Agent Feedback Report',
-          type: 'item',
-          url: '/agentfeedback',
-          // icon: icons.ContactMailOutlinedIcon,
-          icon: icons.RadioButtonCheckedSharpIcon,
-          // breadcrumbs: false
+      id: 'agent-report-feedback',
+      title: 'Agent Feedback Report',
+      type: 'item',
+      url: '/agentfeedback',
+      icon: icons.ForumOutlinedIcon
     }
   ]
 };

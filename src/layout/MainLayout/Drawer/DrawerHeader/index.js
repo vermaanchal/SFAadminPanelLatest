@@ -1,24 +1,20 @@
 import PropTypes from 'prop-types';
-
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import DrawerHeaderStyled from './DrawerHeaderStyled';
-import logo from 'assets/images/users/sfaLogo.png'
-import { useNavigate } from 'react-router-dom';
+import logo from 'assets/images/users/sfaLogo.png';
 
 const DrawerHeader = ({ open }) => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  const handleredirect=()=>{
-    navigate('/dashboard')
-  }
 
   return (
-    <DrawerHeaderStyled theme={theme} open={open} style={{paddingLeft:"0px"}}>
-      <Stack spacing={1} alignItems="center" justifyContent='center'>
-        <img alt='logo' src={logo} width='68px' onClick={handleredirect}/>
+    <DrawerHeaderStyled theme={theme} open={open} style={{ paddingLeft: "0px" }}>
+      <Stack spacing={1} alignItems="center" justifyContent="center">
+        <Link to="/dashboard">
+          <img alt="logo" src={logo} width="68px" />
+        </Link>
       </Stack>
     </DrawerHeaderStyled>
   );

@@ -1,40 +1,31 @@
-// assets
-import { StopOutlined, AccountBookOutlined } from '@ant-design/icons';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
-import WalletIcon from '@mui/icons-material/Wallet';
-// import RadioButtonCheckedSharpIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 
-
-// icons
 const icons = {
-  StopOutlined,
-  AccountBookOutlined, AccountBalanceOutlinedIcon, WalletIcon, RadioButtonCheckedSharpIcon
+  AccountBalanceOutlinedIcon,
+  AccountBalanceWalletOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - SAMPLE PAGE & DOCUMENTATION ||============================== //
 
 const withdrawRecord = {
   id: 'withdrawRecord',
   title: 'Withdraw Record',
   type: 'group',
+  icon: icons.AccountBalanceOutlinedIcon,
   children: [
     {
       id: 'bank',
       title: 'Bank',
       type: 'item',
       url: '/BankWithdraw',
-      // icon: icons.AccountBalanceOutlinedIcon
-      icon: icons.RadioButtonCheckedSharpIcon
+      icon: icons.AccountBalanceOutlinedIcon
     },
     {
       id: 'wallet',
       title: 'Wallet',
       type: 'item',
       url: '/WalletWithdraw',
-      // icon: icons.WalletIcon,
-      icon: icons.RadioButtonCheckedSharpIcon,
-    },
+      icon: icons.AccountBalanceWalletOutlinedIcon
+    }
   ]
 };
 

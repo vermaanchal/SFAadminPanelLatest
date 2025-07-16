@@ -4,6 +4,61 @@ body {
   overflow-x: hidden !important;
 }
 
+/* ===== Default (Light Mode) ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+  color: #121212;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== Scrollbar - Light ===== */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* ===== Dark Mode ===== */
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* ===== Scrollbar - Dark Mode ===== */
+body.dark::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #333;
+}
+
+body input,
+body textarea,
+body select {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode-card {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+
 .imgPreviewDiv {
   width: 80px !important;
   height: 80px !important;
@@ -218,7 +273,7 @@ span.editIcon {
   line-height: 14px !important;
 }
 
-.dashboardCard{
+.dashboardCard {
   padding: 30px;
   margin-left: 15px;
   background: #FFFFFF;
@@ -234,6 +289,7 @@ span.editIcon {
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
 }
+
 .dashCard2 {
   padding: 30px;
   margin-left: 15px;
@@ -241,6 +297,7 @@ span.editIcon {
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
 }
+
 .dashCard3 {
   padding: 30px;
   margin-left: 15px;
@@ -248,10 +305,16 @@ span.editIcon {
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
 }
+
 .dashCard4 {
   padding: 30px;
   margin-left: 15px;
   background: #fde6e9;
   border-radius: 10px;
   box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.15);
+}
+
+
+.css-15v22id-MuiAccordionDetails-root {
+  padding: 0px 16px 0px;
 }

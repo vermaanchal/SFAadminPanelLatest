@@ -1,29 +1,24 @@
-// assets
-import { StopOutlined } from '@ant-design/icons';
-import AppBlockingOutlinedIcon from '@mui/icons-material/AppBlockingOutlined';
-import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
 
-// icons
 const icons = {
-	StopOutlined,
-	AppBlockingOutlinedIcon, RadioButtonCheckedSharpIcon
+	ImageOutlinedIcon,
+	CollectionsOutlinedIcon
 };
-
-// ==============================|| MENU ITEMS - SAMPLE PAGE & DOCUMENTATION ||============================== //
 
 const bannerstatus = {
 	id: 'Banner-Upload',
 	title: 'Banner Upload',
 	type: 'group',
+	icon: icons.ImageOutlinedIcon,
 	children: [
 		{
 			id: 'Banner-Upload/Image',
 			title: 'Banner Upload Details',
 			type: 'item',
 			url: '/bannerUpload',
-			// icon: icons.StopOutlined
-			// icon: icons.RadioButtonCheckedSharpIcon
-		},
+			icon: icons.CollectionsOutlinedIcon
+		}
 	]
 };
 
