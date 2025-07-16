@@ -1,262 +1,206 @@
-import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
+import * as React from 'react';
 import {
   Avatar,
   Box,
-  ButtonBase,
-  CardContent,
-  ClickAwayListener,
-  Grid,
+  Divider,
   IconButton,
-  Paper,
-  Popper,
-  Stack,
-  Typography, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
+  ListItemIcon,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Grid,
+  Stack
 } from '@mui/material';
 
-// project import
-import MainCard from 'components/MainCard';
-import Transitions from 'components/@extended/Transitions';
-
-// assets
-import avatar1 from 'assets/images/users/demo.jpg';
-import { LogoutOutlined } from '@ant-design/icons';
+import Logout from '@mui/icons-material/Logout';
 import SyncLockOutlinedIcon from '@mui/icons-material/SyncLockOutlined';
-import { baseURLProd } from 'api/api';
 import { toast, ToastContainer } from 'react-toastify';
-// tab panel wrapper
-function TabPanel({ children, value, index, ...other }) {
-  return (
-    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
-      {value === index && children}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-};
-
-
-// ==============================|| HEADER CONTENT - PROFILE ||============================== //
+import { baseURLProd } from 'api/api';
+import { useState } from 'react';
 
 const Profile = () => {
-  const theme = useTheme();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const open = Boolean(anchorEl);
 
-  const handleLogout = async () => {
-    window.location.assign('/')
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
     localStorage.removeItem('uservalue');
-    localStorage.removeItem('assignId')
-  };
-  const [passwordopen, setpasswordOpen] = useState(false)
-
-  const handleChangePassword = async () => {
-    // window.location.assign('/changepassword')
-    setpasswordOpen(true)
-
+    localStorage.removeItem('assignId');
+    window.location.assign('/');
   };
 
-  const handlepasswordclose = () => {
-    setpasswordOpen(false)
-  }
-  const anchorRef = useRef(null);
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handlepasswordClose = () => {
-    setpasswordOpen(false)
-    setCurrentPassword("")
-    setNewPassword("")
-  }
-
-  const [currentPassword, setCurrentPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    setOpen(false);
-    setCurrentPassword("")
-    setNewPassword("")
-
-  };
-
-  const handleSubmit = async () => {
+  const handlePasswordSubmit = async () => {
     try {
       const req = await fetch(`${baseURLProd}ChangePassword`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           adminId: '123456',
-          currentPassword: currentPassword,
-          newPassword: newPassword
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+          currentPassword,
+          newPassword
+        })
       });
-
       const res = await req.json();
 
       if (res.status === true) {
-        setCurrentPassword("");
-        setNewPassword("");
-        setpasswordOpen(false);
-        toast.success("Password changed successfully");
+        toast.success('Password changed successfully');
+        setPasswordOpen(false);
+        setCurrentPassword('');
+        setNewPassword('');
       } else {
-        if (res.status === false) {
-          alert("The current password you entered is incorrect. Please try again.");
-        } else {
-          alert("An error occurred: " + res.errorMessage);
-        }
+        alert(res.errorMessage || 'Incorrect current password');
       }
     } catch (error) {
-      console.error("Error changing password:", error);
-      alert("An unexpected error occurred. Please try again later.");
+      console.error('Change password error:', error);
+      alert('Something went wrong. Please try again later.');
     }
   };
 
-
-  const iconBackColorOpen = 'grey.300';
-
   return (
-    <Box sx={{ flexShrink: 0, ml: 0.75 }}>
-      <ButtonBase
-        sx={{
-          p: 0.25,
-          bgcolor: open ? iconBackColorOpen : 'transparent',
-          borderRadius: 1,
-          '&:hover': { bgcolor: 'secondary.lighter' }
-        }}
-        aria-label="open profile"
-        ref={anchorRef}
-        aria-controls={open ? 'profile-grow' : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">Admin</Typography>
-        </Stack>
-      </ButtonBase>
-      <Popper
-        placement="bottom-end"
+    <>
+      <ToastContainer />
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', gap: '2rem', mr: "1.5rem" }}>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2, p: 0 }}
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              <Avatar sx={{ width: 25, height: 25, bgcolor: '#F17A45', fontSize: "0.95rem" }}>A</Avatar>
+              <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: "0.85rem" }}>
+                Admin
+              </Typography>
+            </Stack>
+          </IconButton>
+        </Tooltip>
+      </Box>
+
+
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
         open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        popperOptions={{
-          modifiers: [
-            {
-              name: 'offset',
-              options: {
-                offset: [0, 9]
+        onClose={handleClose}
+        onClick={handleClose}
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1
+              },
+              '&::before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0
               }
             }
-          ]
+          }
         }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {({ TransitionProps }) => (
-          <Transitions type="fade" in={open} {...TransitionProps}>
-            {open && (
-              <Paper
-                sx={{
-                  boxShadow: theme.customShadows.z1,
-                  width: 290,
-                  minWidth: 240,
-                  maxWidth: 290,
-                  [theme.breakpoints.down('md')]: {
-                    maxWidth: 250
-                  }
-                }}
-              >
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MainCard elevation={0} border={false} content={false}>
-                    <ToastContainer />
-                    <CardContent sx={{ px: 2.5, pt: 3 }} >
-                      <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid item>
-                          <Stack direction="row" spacing={1.25} alignItems="center">
-                            <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+        <MenuItem>
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            <Avatar style={{ width: "1.8rem", height: "1.8rem", backgroundColor: '#F17A45', fontSize: "1rem" }}>A</Avatar>
+            <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: "0.85rem" }}>
+              Admin
+            </Typography>
+          </Stack>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={() => setPasswordOpen(true)}>
+          <ListItemIcon>
+            <SyncLockOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          Change Password
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
 
-                            <Stack>
-                              <Typography variant="h6">Logout</Typography>
-                              {/* <Typography variant="body2" color="textSecondary">
-                                UI/UX Designer
-                              </Typography> */}
-                            </Stack>
-                          </Stack>
-                        </Grid>
-                        <Grid item>
-                          <IconButton size="large" color="secondary" onClick={handleLogout}>
-                            <LogoutOutlined />
-                          </IconButton>
-                        </Grid>
-                      </Grid>
-                      <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid item>
-                          <Typography variant="h6">Change Password</Typography>
-                        </Grid>
-                        <Grid item>
-                          <IconButton size="large" color="secondary" onClick={handleChangePassword}>
-                            <SyncLockOutlinedIcon />
-                          </IconButton>
-                          <Dialog open={passwordopen} onClose={handlepasswordclose}>
-                            <DialogTitle className='editTitle'>Change Password</DialogTitle>
-                            <DialogContent>
-                              <Grid className='changepassinnerdiv my-4 '>
-                                <Grid item >
-                                  <TextField
-                                    margin="dense"
-                                    label="Current Password"
-                                    type="text"
-                                    name="currentPassword"
-                                    fullWidth
-                                    value={currentPassword}
-                                    onChange={(e) => setCurrentPassword(e.target.value)}
-                                    className='editInputField'
-                                  />
-                                  <TextField
-                                    margin="dense"
-                                    label="New Password"
-                                    type="text"
-                                    name="newPassword"
-                                    fullWidth
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
-                                    className='editInputField'
-                                  />
-                                </Grid>
-                              </Grid >
-                            </DialogContent>
-                            <DialogActions className='editButtonDiv'>
-                              <Button onClick={handlepasswordClose} className='btn btn-primary' style={{ backgroundColor: '#EF9848', border: '0px' }}>
-                                Cancel
-                              </Button>
-                              <Button onClick={handleSubmit} className='btn btn-primary' style={{ backgroundColor: '#EF9848', border: '0px' }}>
-                                Submit
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </MainCard>
-                </ClickAwayListener>
-              </Paper>
-            )}
-          </Transitions>
-        )}
-      </Popper>
-    </Box>
+      <Dialog open={passwordOpen} onClose={() => setPasswordOpen(false)}>
+        <DialogTitle className="editTitle">Change Password</DialogTitle>
+        <DialogContent>
+          <Grid className="changepassinnerdiv my-4">
+            <Grid item>
+              <TextField
+                margin="dense"
+                label="Current Password"
+                type="password"
+                fullWidth
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                className="editInputField"
+              />
+              <TextField
+                margin="dense"
+                label="New Password"
+                type="password"
+                fullWidth
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="editInputField"
+              />
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions className="editButtonDiv">
+          <Button
+            onClick={() => setPasswordOpen(false)}
+            className="btn btn-primary"
+            style={{ backgroundColor: '#F17A45', border: '0px' }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handlePasswordSubmit}
+            className="btn btn-primary"
+            style={{ backgroundColor: '#F17A45', border: '0px' }}
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

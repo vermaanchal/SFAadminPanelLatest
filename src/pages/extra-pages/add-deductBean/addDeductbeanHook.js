@@ -68,6 +68,7 @@ const AddDeductBeanHook = () => {
       console.error('Error uploading files:', error);
     }
   };
+
   //--------------------filter------------------//
   // useEffect(() => {
   //   const fetchSearchResults = async () => {
@@ -119,24 +120,40 @@ const AddDeductBeanHook = () => {
   //   }
   // }, [search, data]);
 
+  //--------------------filter------------------//
+
+  // useEffect(() => {
+  //   if (!search) {
+  //     setFilter(data);
+  //     setNewSearchData([]);
+  //     return;
+  //   }
+
+  //   const filteredData = data.filter(item =>
+  //     (item.userId?.toLowerCase() || '').includes(search.toLowerCase()) ||
+  //     (item.name?.toLowerCase() || '').includes(search.toLowerCase())
+  //   );
+
+  //   setNewSearchData(filteredData);
+
+  //   if (search.length >= 7) {
+  //     fetchSearchResults(search);
+  //   }
+  // }, [search, data]);
 
   useEffect(() => {
-    if (!search) {
+    if (search === '') {
       setFilter(data);
-      setNewSearchData([]);
-      return;
+    } else {
+      if (search) {
+        const f_data = data.filter((item) => item.userId.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()))
+        setNewSearchData(f_data);
+      }
+      if (search.length >= 7) {
+        fetchSearchResults();
+      }
     }
 
-    const filteredData = data.filter(item =>
-      (item.userId?.toLowerCase() || '').includes(search.toLowerCase()) ||
-      (item.name?.toLowerCase() || '').includes(search.toLowerCase())
-    );
-
-    setNewSearchData(filteredData);
-
-    if (search.length >= 7) {
-      fetchSearchResults(search);
-    }
   }, [search, data]);
 
   const fetchSearchResults = async (userId) => {

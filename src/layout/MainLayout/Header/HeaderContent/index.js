@@ -7,6 +7,7 @@ import Search from './Search';
 import Profile from './Profile';
 // import Notification from './Notification';
 import MobileSection from './MobileSection';
+import LightDarkTheme from '../LightDarkTheme';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
@@ -31,6 +32,7 @@ const HeaderContent = () => {
       </IconButton> */}
 
       {/* <Notification /> */}
+      <LightDarkTheme />
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}
     </>
