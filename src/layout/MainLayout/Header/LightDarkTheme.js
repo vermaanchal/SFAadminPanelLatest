@@ -2,12 +2,12 @@ import React from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import { useThemeMode } from 'themes/ThemeModeProvider';
+import { useThemeMode } from 'themes/ThemeModeProvider'; // adjust path as needed
 
-const LightDarkTheme = () => {
+const LightDarkTheme = ({ hidden = true }) => {
     const { darkMode, toggleTheme } = useThemeMode();
 
-    console.log("darkMode", darkMode)
+    if (hidden) return null;
 
     return (
         <div style={{ marginRight: '1.5rem' }}>
