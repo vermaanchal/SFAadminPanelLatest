@@ -1,6 +1,8 @@
 import { baseURLProd } from 'api/api';
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const HostRequestHook = () => {
   const [search, setSearch] = useState('')
@@ -20,6 +22,13 @@ const HostRequestHook = () => {
   const [showApproveButton, setShowApproveButton] = useState(true);
   const [showRejectButton, setShowRejectButton] = useState(true);
   const [loading, setLoading] = useState(true);
+
+  const [audioprice, setAudioPrice] = useState("")
+  const [videoprice, setVideoPrice] = useState("")
+  const [adminCommision, setAdmincommision] = useState("")
+
+  const navigate = useNavigate();
+
   //---------------------fetch data---------------//
 
   const fetchData = async () => {
@@ -55,60 +64,102 @@ const HostRequestHook = () => {
     })
     setFilter(result)
   }, [search])
+
+
   //---------------approve-------------------//
-  const handleApprove = async (agencyCode, userId) => {
+
+  const handleApprove = async (row) => {
     try {
-      if (window.confirm("Are you sure to Approve the Request")) {
-        await fetch(`${baseURLProd}HostRequestApprove`, {
-          method: 'POST',
-          body: JSON.stringify({ agencyCode: agencyCode, userId: userId }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        const rowIndex = data.findIndex(item => item.agencyCode === agencyCode);
+      const { isConfirmed } = await Swal.fire({
+        title: "Approve Host Request?",
+        text: `Are you sure you want to approve the request for "${row?.name}" (User ID: ${row?.userId})?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, approve it!",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#95a5a6",
+      });
+
+      if (!isConfirmed) return;
+
+      const res = await fetch(`${baseURLProd}HostRequestApprove`, {
+        method: 'POST',
+        body: JSON.stringify({ agencyCode: row?.agencyCode, userId: row?.userId }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (res) {
+        const rowIndex = data.findIndex(item => item.agencyCode === row?.agencyCode);
         if (rowIndex !== -1) {
           const updatedData = [...data];
           updatedData[rowIndex].status1 = 'Approve';
-          toast.success("Request Approved successfully")
+          toast.success("Host request approved successfully!");
+
           setSearch('');
+          setData(updatedData);
+          setFilter(updatedData);
+          fetchData();
+        }
+
+        localStorage.setItem("approveData", JSON.stringify({ selectedRow: row }));
+        navigate("/ApproveHostRequest", {
+          state: { selectedRow: row }
+        });
+      } else {
+        throw new Error("Approval failed");
+      }
+    } catch (error) {
+      console.error('Error approving request:', error);
+      Swal.fire("Failed!", "An error occurred while approving the request.", "error");
+    }
+  };
+
+  //--------------------reject ------------------------//
+  const handleReject = async (agencyCode, userId) => {
+    try {
+      const { isConfirmed } = await Swal.fire({
+        title: "Reject Host Request?",
+        text: `Are you sure you want to reject the request for User ID: ${userId}? This action cannot be undone.`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, reject it!",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#95a5a6",
+      });
+
+      if (!isConfirmed) return;
+
+      const res = await fetch(`${baseURLProd}HostRequestReject`, {
+        method: 'POST',
+        body: JSON.stringify({ agencyCode, userId }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (res.ok) {
+        const rowIndex = data.findIndex(item => item.agencyCode === agencyCode && item.userId === userId);
+        if (rowIndex !== -1) {
+          const updatedData = [...data];
+          updatedData[rowIndex].status1 = 'Reject';
+          toast.success("Host request rejected successfully!");
+
+          setSearch("");
           setData(updatedData);
           setFilter(updatedData);
           fetchData();
         }
       }
     } catch (error) {
-      console.error('Error approving request:', error);
-    }
-  };
-  //--------------------reject ------------------------//
-  const handleReject = async (agencyCode, userId) => {
-    console.log(agencyCode, userId, 'ooppp')
-
-    try {
-      if (window.confirm("Are you sure to Reject the Request")) {
-        await fetch(`${baseURLProd}HostRequestReject`, {
-          method: 'POST',
-          body: JSON.stringify({ agencyCode: agencyCode, userId: userId }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        const rowIndex = data.findIndex(item => item.agencyCode === agencyCode && item.userId === userId);
-        if (rowIndex !== -1) {
-          const updatedData = [...data];
-          updatedData[rowIndex].status1 = 'Reject';
-          toast.success("Request Reject successfully")
-          setSearch("")
-          setData(updatedData);
-          setFilter(updatedData);
-          fetchData()
-        }
-      }
-    } catch (error) {
       console.error('Error rejecting request:', error);
+      Swal.fire("Failed!", "An error occurred while rejecting the request.", "error");
     }
   };
+
   //----------------------image download-------------------//
 
   const handleDownload = (imageUrl, imageName) => {
@@ -251,7 +302,9 @@ const HostRequestHook = () => {
     handleReject, downloadCSV, handleEdit, handleSubmit, handleClose,
     open, userId, name, type, agencyCode, hostCode, phone, setOpen, setUserId, setName, setType,
     setAgencyCode, setHostCode, setPhone, data, handleReset, handleStatusChange, handlefilterSubmit, status,
-    showApproveButton, showRejectButton, loading
+    showApproveButton, showRejectButton, loading,
+    audioprice, videoprice, adminCommision,
+    setAudioPrice, setVideoPrice, setAdmincommision
   }
 }
 

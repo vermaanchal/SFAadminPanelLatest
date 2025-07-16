@@ -3,57 +3,61 @@ import React, { useEffect } from 'react'
 import { useLocation } from "react-router-dom";
 import { Typography, Button, FormControl, MenuItem, Select, InputLabel, TextField } from '@mui/material';
 import AgentRequestHook from './AgentRequestHook';
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { baseURLProd } from 'api/api';
 const ApproveAgentRequest = () => {
-    const {audioprice,videoprice,adminCommision,
-        setAudioPrice,setVideoPrice,setAdmincommision } =AgentRequestHook()
+    const { audioprice, videoprice, adminCommision,
+        setAudioPrice, setVideoPrice, setAdmincommision } = AgentRequestHook()
     const location = useLocation();
     const selectedRow = location.state?.selectedRow;
-  useEffect(() => {
-    if (selectedRow) {
-      setAudioPrice(selectedRow.audioPricePerMin || "");
-      setVideoPrice(selectedRow.videoPricePerMin || "");
-      setAdmincommision(selectedRow.adminComission || "");
-    }
-  }, [selectedRow]);
 
-  const audioCommission =
-    (parseFloat(audioprice || 0) * parseFloat(adminCommision || 0)) / 100;
-  const videoCommission =
-    (parseFloat(videoprice || 0) * parseFloat(adminCommision || 0)) / 100;
+    useEffect(() => {
+        if (selectedRow) {
+            setAudioPrice(selectedRow.audioPricePerMin || "");
+            setVideoPrice(selectedRow.videoPricePerMin || "");
+            setAdmincommision(selectedRow.adminComission || "");
+        }
+    }, [selectedRow]);
+
+    console.log("selectedRow++++++", selectedRow)
+
+    const audioCommission =
+        (parseFloat(audioprice || 0) * parseFloat(adminCommision || 0)) / 100;
+    const videoCommission =
+        (parseFloat(videoprice || 0) * parseFloat(adminCommision || 0)) / 100;
 
     const handleApproveSubmit = async () => {
         try {
-          const response = await fetch(`${baseURLProd}UpdateAgentRates`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              userId: selectedRow.userId,
-              audioPricePerMin: audioprice,
-              videoPricePerMin: videoprice,
-              adminComission: adminCommision
-            })
-          });
-      
-          if (!response.ok) {
-            throw new Error("Failed to update agent rates");
-          }
-      
-          const result = await response.json();
-          toast.success(result.message);
-          setTimeout(()=>{
-            window.location.assign('/AgentRequest')
-          },3000)
+            const response = await fetch(`${baseURLProd}UpdateAgentRates`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: selectedRow.userId,
+                    audioPricePerMin: audioprice,
+                    videoPricePerMin: videoprice,
+                    adminComission: adminCommision
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update agent rates");
+            }
+
+            const result = await response.json();
+            toast.success(result.message);
+            setTimeout(() => {
+                window.location.assign('/AgentRequest')
+            }, 3000)
         } catch (error) {
-          console.error("Error updating agent rates:", error);
+            console.error("Error updating agent rates:", error);
         }
-      };
+    };
+
     return (
         <div>
-            <ToastContainer/>
+            <ToastContainer />
             <MainCard>
                 <div>
                     <div className='row'>
@@ -175,9 +179,9 @@ const ApproveAgentRequest = () => {
                     </div>
 
                 </div>
-                <div className='editButtonDiv mt-4' style={{textAlign:'end'}}>
+                <div className='editButtonDiv mt-4' style={{ textAlign: 'end' }}>
                     <Button
-                          onClick={handleApproveSubmit} 
+                        onClick={handleApproveSubmit}
                         className='btn btn-primary' style={{ backgroundColor: '#EF9848', border: '0px' }}>
                         Submit
                     </Button>

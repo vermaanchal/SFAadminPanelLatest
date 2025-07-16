@@ -120,6 +120,7 @@ const AddDeductBeanHook = () => {
   //   }
   // }, [search, data]);
 
+
   //--------------------filter------------------//
 
   // useEffect(() => {
@@ -141,13 +142,32 @@ const AddDeductBeanHook = () => {
   //   }
   // }, [search, data]);
 
+
+
+  const getLatestTransactionPerUser = (transactions) => {
+    const latestMap = new Map();
+
+    for (const tx of transactions) {
+      const existing = latestMap.get(tx.userId);
+      const currentDate = new Date(tx.dateTime.split(' ').reverse().join(' '));
+      const existingDate = existing ? new Date(existing.dateTime.split(' ').reverse().join(' ')) : null;
+
+      if (!existing || currentDate > existingDate) {
+        latestMap.set(tx.userId, tx);
+      }
+    }
+
+    return Array.from(latestMap.values());
+  };
+
+
   useEffect(() => {
     if (search === '') {
       setFilter(data);
     } else {
       if (search) {
         const f_data = data.filter((item) => item.userId.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()))
-        setNewSearchData(f_data);
+        setNewSearchData(getLatestTransactionPerUser(f_data));
       }
       if (search.length >= 7) {
         fetchSearchResults();

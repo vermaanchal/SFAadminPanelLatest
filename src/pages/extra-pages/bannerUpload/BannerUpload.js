@@ -75,22 +75,80 @@ const BannerUpload = () => {
 		// },
 		{
 			name: 'Enable',
-			cell: (row) => <>
-				{row.isActive === "True" ?
-					<Button color="secondary" variant="contained" size="small" sx={{ opacity: '0.5' }}  >Enabled</Button>
-					:
-					<Button color="warning" variant="contained" size="small" onClick={() => handleEnable(row.uniqueId, true)}>Enable</Button>
-				}
-			</>,
+			cell: (row) =>
+				<>
+					{row.isActive === "True" ? (
+						<Button
+							variant="contained"
+							size="small"
+							disabled
+							sx={{
+								opacity: 0.5,
+								'&.Mui-disabled': {
+									backgroundColor: '#EF9848',
+									color: '#fff',
+								},
+							}}
+						>
+							Enabled
+						</Button>
+					) : (
+						<Button
+							variant="contained"
+							size="small"
+							onClick={() => handleEnable(row.uniqueId, true)}
+							sx={{
+								backgroundColor: '#EF9848',
+								color: '#fff',
+								'&:hover': {
+									backgroundColor: '#e17c28',
+								},
+							}}
+						>
+							Enable
+						</Button>
+					)}
+				</>
+
+
 		},
 		{
 			name: 'Disable',
-			cell: (row) => <> {row.isActive === "False" ?
-				<Button color="secondary" variant="contained" size="small" sx={{ opacity: '0.5' }} >Disabled</Button>
-				:
-				<Button color="warning" variant="contained" size="small" onClick={() => handleEnable(row.uniqueId, false)}>Disable</Button>
+			cell: (row) =>
+				<>
+					{row.isActive === "False" ? (
+						<Button
+							variant="contained"
+							size="small"
+							disabled
+							sx={{
+								opacity: 0.5,
+								'&.Mui-disabled': {
+									backgroundColor: '#F44336',
+									color: '#fff',
+								},
+							}}
+						>
+							Disabled
+						</Button>
+					) : (
+						<Button
+							variant="contained"
+							size="small"
+							onClick={() => handleEnable(row.uniqueId, false)}
+							sx={{
+								backgroundColor: '#F44336',
+								color: '#fff',
+								'&:hover': {
+									backgroundColor: '#d32f2f',
+								},
+							}}
+						>
+							Disable
+						</Button>
+					)}
+				</>
 
-			}</>,
 		},
 		{
 			name: 'Remove',

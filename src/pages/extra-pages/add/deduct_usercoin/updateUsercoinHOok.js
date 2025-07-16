@@ -45,17 +45,37 @@ const UpdateUsercoinHook = () => {
   }, []);
 
   //--------------------filter------------------//
+
+  const getLatestUniqueUsers = (data) => {
+    const userMap = new Map();
+
+    for (const item of data) {
+      const existing = userMap.get(item.userId);
+
+      const currentDate = new Date(item.dateTime.split(' ').reverse().join(' '));
+      const existingDate = existing ? new Date(existing.dateTime.split(' ').reverse().join(' ')) : null;
+
+      if (!existing || currentDate > existingDate) {
+        userMap.set(item.userId, item);
+      }
+    }
+
+    return Array.from(userMap.values());
+  };
+
+
   useEffect(() => {
     if (search === '') {
       setFilter(data);
     } else {
-      if(search){
+      if (search) {
         const f_data = data.filter((item) => item.userId.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()))
-        setNewSearchData(f_data);
+        setNewSearchData(getLatestUniqueUsers(f_data));
+        console.log("getLatestUniqueUsers(f_data)", getLatestUniqueUsers(f_data))
       }
-     if(search.length >= 7){
-      fetchSearchResults();
-     }  
+      if (search.length >= 7) {
+        fetchSearchResults();
+      }
     }
 
   }, [search, data]);
@@ -74,7 +94,7 @@ const UpdateUsercoinHook = () => {
           body: JSON.stringify({ userId: search })
         });
         const result = await req.json();
-        console.log("result",result)
+        console.log("result", result)
         aggregatedResults.push(result.searchUserCoinAmountList[0]);
         setNewSearchData(aggregatedResults);
         setFilter(aggregatedResults);
@@ -82,7 +102,7 @@ const UpdateUsercoinHook = () => {
         console.log(error)
       }
     }
-    else{
+    else {
       setNewSearchData([])
     }
   };

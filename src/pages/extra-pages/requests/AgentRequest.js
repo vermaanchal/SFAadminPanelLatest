@@ -247,7 +247,7 @@ const AgentRequest = () => {
             </div>
           ) : (
             <div className="text-center my-4 fw-bold">
-                 <DataTable
+              <DataTable
                 columns={column}
                 data={dataToRender}
                 fixedHeader
@@ -280,7 +280,7 @@ const AgentRequest = () => {
                 }
               />
               {/* Data not found */}
-              </div>
+            </div>
           )
         )}
 
