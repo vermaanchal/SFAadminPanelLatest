@@ -176,7 +176,7 @@ const AddDeductBeanHook = () => {
 
   }, [search, data]);
 
-  const fetchSearchResults = async (userId) => {
+  const fetchSearchResults = async () => {
     try {
       setNewSearchData([]);
 
@@ -185,7 +185,7 @@ const AddDeductBeanHook = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId }),
+        body: JSON.stringify({ userId: search }),
       });
 
       const result = await response.json();

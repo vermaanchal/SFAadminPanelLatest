@@ -104,7 +104,7 @@ const HostRequest = () => {
     {
       name: "Status",
       // selector: price,
-      cell: row => <div className="custom-cell">{row.status1 || "_"}</div>,
+      cell: row => <div className="custom-cell">{row.status1 === 'Approve' ? "Aprroved" : row.status1 === 'Reject' ? "Rejected" : "_"}</div>,
       width: '180px'
     },
     {
@@ -180,7 +180,7 @@ const HostRequest = () => {
                   disabled={row.status1 === 'Reject'}
                   style={{ backgroundColor: '#EF9848', border: '0px' }}
                 >
-                  Rejectd
+                  Rejected
                 </button>
               </>
             )}

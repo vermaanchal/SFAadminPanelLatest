@@ -5,6 +5,7 @@ import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 
 // icons
 const icons = {
@@ -13,7 +14,8 @@ const icons = {
   PhotoLibraryOutlinedIcon,
   GroupsOutlinedIcon,
   HowToRegOutlinedIcon,
-  WorkOutlineIcon
+  WorkOutlineIcon,
+  ReceiptLongOutlinedIcon
 };
 
 // ==============================|| MENU ITEMS - USER MANAGEMENT ||============================== //
@@ -22,7 +24,7 @@ const appUserDetail = {
   id: 'app-user',
   title: 'User Management',
   type: 'group',
-  icon: icons.GroupOutlinedIcon, // ✅ Group icon
+  icon: icons.GroupOutlinedIcon,
   children: [
     {
       id: 'app-user-details',
@@ -58,7 +60,14 @@ const appUserDetail = {
       type: 'item',
       url: '/CreateDesignation',
       icon: icons.WorkOutlineIcon
-    }
+    },
+    // {
+    //   id: 'all-user-transection',
+    //   title: 'User Transections',
+    //   type: 'item',
+    //   url: '/getAllUserTransections',
+    //   icon: icons.ReceiptLongOutlinedIcon
+    // }
   ]
 };
 
